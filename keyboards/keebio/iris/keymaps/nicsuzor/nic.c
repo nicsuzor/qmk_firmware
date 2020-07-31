@@ -166,8 +166,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
       }
       break;
-    case _RAISE:
-        if (clockwise) {
+    case _ADJUST:
+        if (clo sckwise) {
           tap_code(KC_RIGHT);
         } else {
           tap_code(KC_LEFT);
