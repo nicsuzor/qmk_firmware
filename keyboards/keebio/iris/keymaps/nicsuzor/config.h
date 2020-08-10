@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #define TAPPING_TERM 175
 #define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TOGGLE 2
 // #define USE_I2C
 #define EE_HANDS
 #define NO_AUTO_SHIFT_SPECIAL
