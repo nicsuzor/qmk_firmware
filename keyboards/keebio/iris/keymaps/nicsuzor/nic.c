@@ -99,7 +99,7 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 #endif
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable(); // Enable RGB by default
-    rgblight_sethsv(0, 255, 255);  // Set default HSV - red hue, full saturation, full brightness
+    rgblight_sethsv(0, 255, 70);  // Set default HSV - red hue, full saturation, full brightness
 #ifdef RGBLIGHT_ANIMATIONS
     rgblight_mode(0);
     //rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2); // set to RGB_RAINBOW_SWIRL by default
@@ -115,19 +115,19 @@ uint32_t layer_state_set_kb(uint32_t state) {
     // This function is called every time a layer switches, no matter how it switches
     switch (biton32(state)) {
       case _QWERTY:
-          rgblight_sethsv(115, 255, 255);
+          rgblight_sethsv(115, 255, 70);
           break;
       case _LOWER:
-          rgblight_sethsv(213, 255, 255);
+          rgblight_sethsv(213, 255, 70);
           break;
       case _RAISE:
-          rgblight_sethsv(0, 255, 255);
+          rgblight_sethsv(0, 255, 70);
           break;
       case _ADJUST:
-          rgblight_sethsv(60, 255, 255);
+          rgblight_sethsv(60, 255, 70);
           break;
       default: //  for any other layers, or the default layer
-          rgblight_sethsv(240, 255, 255);
+          rgblight_sethsv(240, 150, 70);
           break;
     }
 #endif
