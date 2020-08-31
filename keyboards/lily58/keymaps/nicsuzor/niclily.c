@@ -70,7 +70,7 @@ void oled_task_user(void) {
   oled_write_P(PSTR("\n\n"), false);
   if (is_keyboard_master()) {
     oled_write_ln_P(PSTR("Layer"), false);
-    switch (get_highest_layer(layer_state)) {
+    switch (biton32(layer_state)) {
        case _QWERTY:
            oled_write_ln_P(PSTR("Default"), false);
            break;
@@ -92,13 +92,13 @@ void oled_task_user(void) {
 
    } else {
         // If you want to change the display of OLED, you need to change here
-    //oled_write_ln(read_layer_state(), false);
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_ln(read_layer_state(), false);
+    //oled_write_P(PSTR("\n\n"), false);
     oled_write_ln_P(read_keylog(), false);
     oled_write_ln_P(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    //oled_write_ln(read_host_led_state(), false);
-    //oled_write_ln(read_timelog(), false);
+    oled_write_ln(read_host_led_state(), false);
+    oled_write_ln(read_timelog(), false);
     //oled_write(read_logo(), false);
   }
 }
