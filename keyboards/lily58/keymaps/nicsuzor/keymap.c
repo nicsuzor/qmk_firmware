@@ -68,17 +68,37 @@ const char *read_keylogs(void);
 
 void oled_task_user(void) {
   if (is_keyboard_master()) {
+    switch (get_highest_layer(layer_state)) {
+      case _QWERTY:
+          oled_write_ln(PSTR("Default\n"), false);
+          break;
+      case _LOWER:
+          oled_write_ln(PSTR("SYMBOLS\n"), false);
+          break;
+      case _RAISE:
+          oled_write_ln(PSTR("NUM FN\n"), false);
+          break;
+      case _ADJUST:
+          oled_write_ln(PSTR("ADJUST\n"), false);
+          break;
+      default:
+          // Or use the write_ln shortcut over adding '\n' to the end of your string
+          oled_write_ln(PSTR("Undefined"), false);
+    }
+
+    oled_write_ln(read_timelog(), false);
+  } else {
     // If you want to change the display of OLED, you need to change here
     oled_write_ln(read_layer_state(), false);
     oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
     //oled_write_ln(read_host_led_state(), false);
-    //oled_write_ln(read_timelog(), false);
-  } else {
-    oled_write(read_logo(), false);
+    //oled_write(read_logo(), false);
   }
 }
+
+
 #endif // OLED_DRIVER_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

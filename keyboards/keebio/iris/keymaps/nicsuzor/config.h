@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_AUTO_SHIFT_SPECIAL
 #define NO_AUTO_SHIFT_ALPHA
 
+#define FORCE_NKRO
+
 //https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION

@@ -31,7 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL_PD2
 
 #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
+#define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT
+
+#define FORCE_NKRO
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
@@ -40,6 +43,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
+
+//#define SSD1306OLED
+
+#undef OLED_DRIVER_ENABLE
+#define OLED_DRIVER_ENABLE
 
 // Underglow
 /*
