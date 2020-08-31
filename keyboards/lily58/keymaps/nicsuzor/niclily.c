@@ -67,37 +67,39 @@ void set_timelog(void);
 const char *read_timelog(void);
 
 void oled_task_user(void) {
-
+  oled_write_P(PSTR("\n\n"), false);
   if (is_keyboard_master()) {
+    oled_write_ln_P(PSTR("Layer"), false);
     switch (get_highest_layer(layer_state)) {
        case _QWERTY:
-           oled_write_ln(PSTR("Default"), false);
+           oled_write_ln_P(PSTR("Default"), false);
            break;
        case _LOWER:
-           oled_write_ln(PSTR("SYMBOLS"), false);
+           oled_write_ln_P(PSTR("SYMBOLS"), false);
            break;
        case _RAISE:
-           oled_write_ln(PSTR("NUM FN"), false);
+           oled_write_ln_P(PSTR("NUM FN"), false);
            break;
        case _ADJUST:
-           oled_write_ln(PSTR("ADJUST"), false);
+           oled_write_ln_P(PSTR("ADJUST"), false);
            break;
        default:
            // Or use the write_ln shortcut over adding '\n' to the end of your string
-           oled_write_ln(PSTR("Undefined"), false);
+           oled_write_ln_P(PSTR("Undefined"), false);
      }
 
-     oled_write_ln(read_timelog(), false);
+     oled_write_ln_P(read_timelog(), false);
 
    } else {
         // If you want to change the display of OLED, you need to change here
     //oled_write_ln(read_layer_state(), false);
-    oled_write_ln(read_keylog(), false);
-    oled_write_ln(read_keylogs(), false);
+    oled_write_P(PSTR("\n\n"), false);
+    oled_write_ln_P(read_keylog(), false);
+    oled_write_ln_P(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
     //oled_write_ln(read_host_led_state(), false);
     //oled_write_ln(read_timelog(), false);
-    // oled_write(read_logo(), false);
+    //oled_write(read_logo(), false);
   }
 }
 #endif // OLED_DRIVER_ENABLE
