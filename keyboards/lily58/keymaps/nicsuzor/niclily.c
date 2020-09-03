@@ -47,12 +47,12 @@ void matrix_init_user(void) {
 
 //SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
 #ifdef OLED_DRIVER_ENABLE
-
+/*
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   return rotation;
-}
+}*/
 
 // When you add source files to SRC in rules.mk, you can use functions.
 const char *read_layer_state(void);
@@ -69,7 +69,7 @@ const char *read_timelog(void);
 void oled_task_user(void) {
   oled_write_P(PSTR("\n\n"), false);
   if (is_keyboard_master()) {
-    oled_write_ln_P(PSTR("Layer"), false);
+    //oled_write_ln_P(PSTR("Layer"), false);
     switch (biton32(layer_state)) {
        case _QWERTY:
            oled_write_ln_P(PSTR("Default"), false);
@@ -88,17 +88,21 @@ void oled_task_user(void) {
            oled_write_ln_P(PSTR("Undefined"), false);
      }
 
-     oled_write_ln_P(read_timelog(), false);
+     //oled_write_ln_P(read_timelog(), false);
 
    } else {
+     oled_write_ln(read_keylog(), false);
+     oled_write_ln(read_keylogs(), false);
+     //oled_write_ln(read_timelog(), false);
+
         // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
+    //oled_write_ln(read_layer_state(), false);
     //oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(read_keylog(), false);
-    oled_write_ln_P(read_keylogs(), false);
+    //oled_write_ln_P(read_keylog(), false);
+    //oled_write_ln_P(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    oled_write_ln(read_host_led_state(), false);
-    oled_write_ln(read_timelog(), false);
+//(read_host_led_state(), false);
+    //oled_write_ln(read_timelog(), false);
     //oled_write(read_logo(), false);
   }
 }
