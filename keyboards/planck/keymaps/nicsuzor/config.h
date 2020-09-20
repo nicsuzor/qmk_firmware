@@ -17,6 +17,12 @@
 
 #pragma once
 
+#define ORYX_CONFIGURATOR
+#define PLANCK_EZ_LED_LOWER 3
+#define PLANCK_EZ_LED_RAISE 4
+#define PLANCK_EZ_LED_ADJUST 6
+
+
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0000
 
