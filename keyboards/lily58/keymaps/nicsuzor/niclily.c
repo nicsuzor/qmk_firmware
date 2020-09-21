@@ -18,12 +18,14 @@ extern uint8_t is_master;
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
-#define _ADJUST 3
+#define _GAMES 3
+#define _ADJUST 4
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
+  GAMES,
   ADJUST,
 };
 
@@ -80,6 +82,9 @@ void oled_task_user(void) {
        case _RAISE:
            oled_write_ln_P(PSTR("NUM FN"), false);
            break;
+       case _GAMES:
+           oled_write_ln_P(PSTR("GAMES"), false);
+           break;
        case _ADJUST:
            oled_write_ln_P(PSTR("ADJUST"), false);
            break;
@@ -99,7 +104,7 @@ void oled_task_user(void) {
 
     oled_write_ln_P(read_keylog(), false);
     oled_write_ln_P(read_keylogs(), false);
-    
+
     //oled_write_ln_P(read_keylog(), false);
     //oled_write_ln_P(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
