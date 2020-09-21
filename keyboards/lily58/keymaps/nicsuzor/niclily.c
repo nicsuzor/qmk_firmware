@@ -69,7 +69,7 @@ void set_timelog(void);
 const char *read_timelog(void);
 
 void oled_task_user(void) {
-  oled_write_P(PSTR("\n\n"), false);
+  //oled_write_P(PSTR("\n"), false);
   if (is_keyboard_master()) {
     //oled_write_ln_P(PSTR("Layer"), false);
     switch (biton32(layer_state)) {
@@ -94,6 +94,9 @@ void oled_task_user(void) {
      }
 
      //oled_write_ln_P(read_timelog(), false);
+     oled_write_ln_P(read_keylog(), false);
+     oled_write_ln_P(read_keylogs(), false);
+     oled_write_ln_P(PSTR("test"), false);
 
    } else {
      //oled_write_ln(read_timelog(), false);
