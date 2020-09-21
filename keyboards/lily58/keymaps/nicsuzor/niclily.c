@@ -102,8 +102,10 @@ void oled_task_user(void) {
     //oled_write_ln(read_layer_state(), false);
     oled_write_P(PSTR("\n\n"), false);
 
+    oled_write_ln_P(read_layer_state(), false);
     oled_write_ln_P(read_keylog(), false);
     oled_write_ln_P(read_keylogs(), false);
+    oled_write_ln_P(PSTR("test"), false);
 
     //oled_write_ln_P(read_keylog(), false);
     //oled_write_ln_P(read_keylogs(), false);
