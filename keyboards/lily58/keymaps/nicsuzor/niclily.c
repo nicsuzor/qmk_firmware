@@ -94,8 +94,8 @@ void oled_task_user(void) {
      }
 
      //oled_write_ln_P(read_timelog(), false);
-     oled_write_ln_P(read_keylog(), false);
-     oled_write_ln_P(read_keylogs(), false);
+     oled_write_ln(read_keylog(), false);
+     oled_write_ln(read_keylogs(), false);
      oled_write_ln_P(PSTR("test"), false);
 
    } else {
@@ -103,12 +103,12 @@ void oled_task_user(void) {
 
         // If you want to change the display of OLED, you need to change here
     //oled_write_ln(read_layer_state(), false);
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_P(PSTR("\n"), false);
 
-    oled_write_ln_P(read_layer_state(), false);
-    oled_write_ln_P(read_keylog(), false);
-    oled_write_ln_P(read_keylogs(), false);
-    oled_write_ln_P(PSTR("test"), false);
+    oled_write_ln(read_layer_state(), false);
+    oled_write_ln(read_keylog(), false);
+    oled_write_ln(read_keylogs(), false);
+    oled_write_ln(PSTR("test"), false);
 
     //oled_write_ln_P(read_keylog(), false);
     //oled_write_ln_P(read_keylogs(), false);
