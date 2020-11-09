@@ -1,7 +1,6 @@
 //
 // Created by nic on 31/10/2020.
 //
-#include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
 enum part_layer_names {
@@ -31,7 +30,7 @@ void *array_concat(const void *a, size_t an,
  * differences are in the modifiers only. Here, we declare the
  * common keys, and in the keyboard specific keymap, we concat
  * the custom with the generic layouts. */
-const int nic_base[9][6] =
+const uint16_t nic_base[9][6] =
     {
         [_1234] = {KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5},
         [_QWER] = {KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T},
@@ -44,7 +43,7 @@ const int nic_base[9][6] =
 
     };
 
-const int nic_lower[9][6] =
+const uint16_t nic_lower[9][6] =
     {
         [_1234] = {KC_NO, KC_NO, KC_NO, LCTL(KC_PGUP), LCTL(KC_PGDN), KC_NO},
         [_QWER] = {KC_TAB, KC_HOME, KC_UP, KC_END, KC_PGUP, KC_BSPC},
@@ -57,7 +56,7 @@ const int nic_lower[9][6] =
 
     };
 
-const int nic_raise[9][6] =
+const uint16_t nic_raise[9][6] =
     {
         [_1234] = {KC_GRV, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
         [_QWER] = { KC_TAB, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5},
@@ -71,7 +70,7 @@ const int nic_raise[9][6] =
 
     };
 
-const int nic_adjust[9][6] = {
+const uint16_t nic_adjust[9][6] = {
     [_1234] = {KC_ESC, KC_PSCR, KC_NO, KC_NO, LALT(KC_F4), LCTL(LSFT(KC_ESC))},
     [_QWER] = { LCA(KC_DEL), KC_NO, KC_NO, KC_NO, KC_NO, RESET},
     [_ASDF] = { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO },
