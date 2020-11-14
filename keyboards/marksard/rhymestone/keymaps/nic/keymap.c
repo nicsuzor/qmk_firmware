@@ -28,7 +28,7 @@ enum custom_keycodes {
     RGBRST
 };
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+/*const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
     TO(GAME), KC_7,    KC_8,    KC_9, KC_MINUS , \
     RGBRST, KC_4,    KC_5,    KC_6,  KC_PLUS ,         \
@@ -41,20 +41,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSHIFT, KC_Z,    KC_X,    KC_C, KC_V,         \
     KC_LCTL, KC_ESC, KC_GRV, KC_ENTER, KC_SPACE
   )
-};
+};*/
 
-#define UPDATE_KEYMAP_STATUS()
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+[_BASE] = LAYOUT_ortho_4x10(
+    KC_ASTR, KC_7,    KC_8,    KC_9, KC_TAB , \
+    KC_ASTR, KC_7,    KC_8,    KC_9, KC_TAB , \
+    KC_SLSH, KC_4,    KC_5,    KC_6,   KC_SPACE,         \
+    KC_SLSH, KC_4,    KC_5,    KC_6,   KC_SPACE,         \
+    KC_PLUS, KC_1,    KC_2,    KC_3, KC_ENTER,         \
+    KC_PLUS, KC_1,    KC_2,    KC_3, KC_ENTER,         \
+    KC_MINUS, KC_0, KC_DOT, RGBRST, KC_ESC,   \
+    KC_MINUS , KC_0, KC_DOT, RGBRST, KC_ESC   \
+   )
+};
 
 void matrix_init_user(void) {
 #ifdef RGB_MATRIX_ENABLE
-    uprintf("enabled rgb matrix 1");
     eeconfig_update_rgb_matrix_default();
     rgb_matrix_enable();
 #endif
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable(); // Enable RGB by default
-    rgblight_sethsv(0, 255, 70);  // Set default HSV - red hue, full saturation, full brightness
-    rgblight_mode(0);
+    rgblight_sethsv(0, 255, 70);
 #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
@@ -62,58 +72,21 @@ void matrix_init_user(void) {
 #endif
 }
 
-void keyboard_post_init_user(void) {
-
-#ifdef RGB_MATRIX_ENABLE
-    uprintf("enabled rgb matrix 2");
-    eeconfig_update_rgb_matrix_default();
-    rgb_matrix_enable();
-#endif
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-
     UPDATE_KEY_STATUS(keycode, record);
     bool result = false;
     switch (keycode) {
-        case KC_1: // toggle rgb matrix
-
-            uprintf("truend on light 1");
-            rgblight_sethsv(115, 255, 70);
-#ifdef RGB_MATRIX_ENABLE
-            uprintf("enabled rgb matrix 1");
-            rgb_matrix_toggle();
-            return false;
-#endif
-        case KC_4:
-
-            eeconfig_update_rgblight_default();
-            rgblight_enable();
-            rgblight_sethsv(213, 255, 70);
-            uprintf("turned on light 2");
-#ifdef RGB_MATRIX_ENABLE
-            uprintf("enabled rgb matrix 2");
-            rgb_matrix_enable_noeeprom();
-            rgb_matrix_mode(RGB_MATRIX_RAINBOW_BEACON);
-            return false;
-#endif
         case RGBRST:
-            uprintf("Pressed RGBRST");
-            uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
             if (record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
-                uprintf("Pressed RGBRST light");
                 rgblight_step();
-
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
                 rgb_matrix_step();
-                uprintf("Pressed RGBRST STEP");
-                result = true;
 #endif
             }
+            result = false;
             break;
         default:
             result = true;
@@ -121,3 +94,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   return result;
 }
+

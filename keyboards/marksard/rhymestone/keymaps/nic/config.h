@@ -32,48 +32,16 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xDFA1
-#define DEVICE_VER      0x0020
-#define MANUFACTURER    marksard
-#define PRODUCT         Rhymestone
-
-/* key matrix size */
-#undef MATRIX_ROWS
-#undef MATRIX_COLS
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 5
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#undef MATRIX_ROW_PINS
-#define MATRIX_ROW_PINS { F4, F5, F6, F7 }
-#undef MATRIX_COL_PINS
-#define MATRIX_COL_PINS { D4, C6, D7, E6, B4 }
-
-
-/* COL2ROW, ROW2COL*/
-#undef DIODE_DIRECTION
-#define DIODE_DIRECTION COL2ROW
+#undef DEVICE_VER
+#undef PRODUCT
+#define DEVICE_VER      0x0021
+#define PRODUCT         RhymestoneNumPad
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #undef SOFT_SERIAL_PIN
 // #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
-
-
-#define RGB_DI_PIN D3
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 
 #define LAYOUT( \
@@ -88,3 +56,17 @@
     { k10, k11, k12, k13, k14  },       \
     { k15, k16, k17, k18, k19 }        \
 }
+
+#define DISABLE_RGB_MATRIX_SOLID_REACTIVE
+#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#define DISABLE_RGB_MATRIX_SPLASH
+#define DISABLE_RGB_MATRIX_MULTISPLASH
+#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#define DISABLE_RGB_MATRIX_DIGITAL_RAIN
+
