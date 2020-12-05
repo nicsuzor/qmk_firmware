@@ -17,26 +17,28 @@
 #include "./common/oled_helper.h"
 #include <print.h>
 #include QMK_KEYBOARD_H
+#include <config.h>
+
 enum layer_number {
   _BASE,
-  _GAME
+  _UPPER
 };
 
 enum custom_keycodes {
     BASE = SAFE_RANGE,
-    GAME,
+    UPPER,
     RGBRST
 };
 
 /*const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
-    TO(GAME), KC_7,    KC_8,    KC_9, KC_MINUS , \
+    UPPER, KC_7,    KC_8,    KC_9, KC_MINUS , \
     RGBRST, KC_4,    KC_5,    KC_6,  KC_PLUS ,         \
     KC_TAB, KC_1,    KC_2,    KC_3, KC_ENTER,         \
     KC_SPACE, KC_0, KC_DOT, KC_SLSH, KC_ASTR   \
   ),
 [_GAME] = LAYOUT(
-    TO(BASE), KC_Q,    KC_W,    KC_E, KC_R, \
+    BASE, KC_Q,    KC_W,    KC_E, KC_R, \
     KC_TAB, KC_A,    KC_S,    KC_D, KC_F,            \
     KC_LSHIFT, KC_Z,    KC_X,    KC_C, KC_V,         \
     KC_LCTL, KC_ESC, KC_GRV, KC_ENTER, KC_SPACE
@@ -45,16 +47,20 @@ enum custom_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BASE] = LAYOUT_ortho_4x10(
-    KC_ASTR, KC_7,    KC_8,    KC_9, KC_TAB , \
-    KC_ASTR, KC_7,    KC_8,    KC_9, KC_TAB , \
-    KC_SLSH, KC_4,    KC_5,    KC_6,   KC_SPACE,         \
-    KC_SLSH, KC_4,    KC_5,    KC_6,   KC_SPACE,         \
-    KC_PLUS, KC_1,    KC_2,    KC_3, KC_ENTER,         \
-    KC_PLUS, KC_1,    KC_2,    KC_3, KC_ENTER,         \
-    KC_MINUS, KC_0, KC_DOT, RGBRST, KC_ESC,   \
-    KC_MINUS , KC_0, KC_DOT, RGBRST, KC_ESC   \
-   )
+[_BASE] = LAYOUT_5x4(
+    KC_ESC , KC_SLSH, KC_ASTR, KC_MINUS, \
+    KC_7,    KC_8,    KC_9,     KC_PLUS, \
+    KC_4,    KC_5,    KC_6,     KC_EQL, \
+    KC_1,    KC_2,    KC_3,     KC_ENTER,         \
+    TO(_UPPER), KC_0,    KC_DOT, RGBRST       \
+   ),
+[_UPPER] = LAYOUT_5x4(
+    KC_ESC , KC_SLSH, KC_ASTR, KC_MINUS, \
+    KC_7,    KC_8,    KC_9, KC_PLUS, \
+    KC_4,    KC_5,    KC_6,   KC_EQL, \
+    KC_1,    KC_2,    KC_3, KC_ENTER,         \
+    TO(_BASE), KC_0,    KC_DOT, RGBRST         \
+   ),
 };
 
 void matrix_init_user(void) {
@@ -76,6 +82,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     UPDATE_KEY_STATUS(keycode, record);
     bool result = false;
     switch (keycode) {
+        case BASE:
+            layer_on(_BASE);
+            break;
+        case UPPER:
+            layer_on(_UPPER);
+              wmbreak;
         case RGBRST:
             if (record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE

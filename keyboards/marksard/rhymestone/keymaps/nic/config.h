@@ -37,6 +37,11 @@
 #define DEVICE_VER      0x0021
 #define PRODUCT         RhymestoneNumPad
 
+/* key matrix size */
+#undef MATRIX_ROWS
+#undef MATRIX_COLS
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 5
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
@@ -44,19 +49,26 @@
 // #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
 
 
-#define LAYOUT( \
-    k00, k01, k02, k03, k04, \
-    k05, k06, k07, k08, k09, \
-    k10, k11, k12, k13, k14, \
-    k15, k16, k17, k18, k19 \
+#define LAYOUT_5x4( \
+    k00, k01, k02, k03, \
+    k04, k05, k06, k07, \
+    k08, k09, k10, k11, \
+    k12, k13, k14, k15, \
+    k16, k17, k18, k19 \
 ) \
 { \
-    { k00, k01, k02, k03, k04  }, \
-    { k05, k06, k07, k08, k09  },       \
-    { k10, k11, k12, k13, k14  },       \
-    { k15, k16, k17, k18, k19 }        \
+    { k03, k07, k11, k15, k19  }, \
+    { k02, k06, k10, k14, k18  },       \
+    { k01, k05, k09, k13, k17  },       \
+    { k00, k04, k08, k12, k16 } \
 }
 
+/*{ \
+    { k19, k15, k11, k07, k03 }, \
+    { k18, k14, k10, k06, k02 },       \
+    { k17, k13, k09, k05, k01  },       \
+    { k16, k12, k08, k04, k00 }        \
+}*/
 #define DISABLE_RGB_MATRIX_SOLID_REACTIVE
 #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
 #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
