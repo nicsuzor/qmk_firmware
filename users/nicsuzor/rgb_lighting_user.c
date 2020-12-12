@@ -289,13 +289,13 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
                 break;
             default:  //  for any other layers, or the default layer
             {
-                uint8_t mode = get_highest_layer(state) == _MODS ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
+                //RGBLIGHT_MODE_STATIC_LIGHT;
                 switch (get_highest_layer(default_layer_state)) {
-                    case _DVORAK:
-                        rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, mode);
+                    case _QWERTY:
+                        rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, RGBLIGHT_MODE_BREATHING);
                         break;
                     default:
-                        rgblight_set_hsv_and_mode(HSV_CYAN, mode);
+                        rgblight_set_hsv_and_mode(HSV_CYAN, RGBLIGHT_MODE_BREATHING);
                         break;
                 }
                 break;

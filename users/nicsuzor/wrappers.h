@@ -10,22 +10,19 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #endif
 
 // clang-format off
-#define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
-#define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
-#define LAYOUT_ortho_5x12_wrapper(...)       LAYOUT_ortho_5x12(__VA_ARGS__)
 
 #define _________________QWERTY_L1_________________         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,     KC_T
 #define _________________QWERTY_L2_________________         KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,     KC_G
 #define _________________QWERTY_L3_________________         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,     KC_B
 
-#define _________________QWERTY_R1_________________         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_DEL
+#define _________________QWERTY_R1_________________         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSPC
 #define _________________QWERTY_R2_________________         KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT,  KC_ENT
 #define _________________QWERTY_R3_________________         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH, KC_RSFT
 
 
 #define ________________NUMBER_LEFT________________         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5
-#define ________________NUMBER_RIGHT_______________         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_BSPC
+#define ________________NUMBER_RIGHT_______________         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_DEL
 
 #define _________________FUNC_1____________________         KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC_2____________________         KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -33,6 +30,9 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 
 #define ___________________BLANK___________________         _______, _______, _______, _______, _______, _______
+
+#define _______________GRID_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, KC_NO, KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
+#define _____________DOUBLE_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, KC_NO, KC_LALT, LOWER,     KC_SPC,     RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 
 
 #define _________________LOWER_L1__________________         KC_NO, KC_NO, KC_NO, LCTL(KC_PGUP), LCTL(KC_PGDN), KC_NO
@@ -56,11 +56,11 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________RAISE_R4__________________         KC_PPLS, KC_P0, KC_P0, KC_PDOT, KC_COLN, TO(0)
 
 #define _________________ADJUST_L1_________________         RGB_MOD, KC_PSCR, KC_NO, LCTL(LSFT(KC_ESC)), LALT(KC_F4), LCTL(LSFT(KC_ESC))
-#define _________________ADJUST_L2_________________         MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  CG_NORM, KC_NO, KC_NO
-#define _________________ADJUST_L3_________________         RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T, KC_NO, KC_NO
+#define _________________ADJUST_L2_________________         MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  CG_NORM, RGB_TOG
+#define _________________ADJUST_L3_________________         RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T, RGB_IDL
 
-#define _________________ADJUST_R1_________________         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RESET
+#define _________________ADJUST_R1_________________         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RESET
 #define _________________ADJUST_R2_________________         ___________________BLANK___________________
-#define _________________ADJUST_R3_________________         ___________________BLANK___________________
+#define _________________ADJUST_R3_________________         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0)
 
 // clang-format on

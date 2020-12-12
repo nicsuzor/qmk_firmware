@@ -16,38 +16,36 @@ void check_default_layer(uint8_t mode, uint8_t type) {
         case _QWERTY:
             rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type);
             break;
-        case _COLEMAK:
-            rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type);
-            break;
-        case _DVORAK:
-            rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type);
-            break;
-        case _WORKMAN:
-            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type);
-            break;
     }
+}
+
+void rgb_matrix_by_layer(int layer) {
+
+    switch (layer) {
+        case _RAISE:
+            rgb_matrix_layer_helper(HSV_YELLOW, RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+            break;
+        case _LOWER:
+            rgb_matrix_layer_helper(HSV_GREEN, RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+            break;
+        case _ADJUST:
+            rgb_matrix_layer_helper(HSV_RED, RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+            break;
+        default: {
+            rgb_matrix_layer_helper(HSV_CYAN, RGB_MATRIX_BAND_SPIRAL_SAT, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+            break;
+        }
+    }
+
 }
 
 void rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change && !g_suspend_state && rgb_matrix_config.enable) {
-        switch (get_highest_layer(layer_state)) {
-            case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                break;
-            case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                break;
-            case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                break;
-            default: {
-                check_default_layer(IS_LAYER_ON(_MODS), LED_FLAG_UNDERGLOW);
-                break;
-            }
-        }
+        rgb_matrix_by_layer(get_highest_layer(layer_state));
         check_default_layer(0, LED_FLAG_MODIFIER);
     }
 }
+
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     uint16_t temp_keycode = keycode;
@@ -112,33 +110,9 @@ void matrix_scan_rgb(void) {
 }
 
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
-    HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_config.hsv.v) {
-        hsv.v = rgb_matrix_config.hsv.v;
+    if (val > rgb_matrix_config.hsv.v) {
+        val = rgb_matrix_config.hsv.v;
     }
-
-    switch (mode) {
-        case 1:  // breathing
-        {
-            uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
-            hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-            RGB rgb       = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-                }
-            }
-            break;
-        }
-        default:  // Solid Color
-        {
-            RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-                }
-            }
-            break;
-        }
-    }
+    rgb_matrix_mode_noeeprom(mode);
+    rgb_matrix_sethsv_noeeprom(hue, sat, val);
 }

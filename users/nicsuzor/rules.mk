@@ -1,5 +1,4 @@
-SRC += curry.c \
-       process_records.c
+SRC += nic.c
 
 # Common flags
 SPACE_CADET_ENABLE      = no
@@ -8,17 +7,9 @@ EXTRAKEY_ENABLE         = yes
 UNICODE_ENABLE          = yes
 NKRO_ENABLE             = yes
 EXTRAKEY_ENABLE         = yes
-LEADER_ENABLE           = yes
+LEADER_ENABLE           = no
 TAP_DANCE_ENABLE        = no
-
-ifneq ($(strip $(NO_SECRETS)), yes)
-    ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
-        SRC += secrets.c
-    endif
-    ifeq ($(strip $(NO_SECRETS)), lite)
-        OPT_DEFS += -DNO_SECRETS
-    endif
-endif
+INDICATOR_LIGHTS		= no
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += tap_dances.c

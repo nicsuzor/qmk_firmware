@@ -59,15 +59,6 @@ void render_default_layer_state(void) {
         case _QWERTY:
             oled_write_P(PSTR(" QRTY"), false);
             break;
-        case _COLEMAK:
-            oled_write_P(PSTR(" COLE"), false);
-            break;
-        case _DVORAK:
-            oled_write_P(PSTR(" DVRK"), false);
-            break;
-        case _WORKMAN:
-            oled_write_P(PSTR(" WRKM"), false);
-            break;
     }
 }
 
@@ -75,7 +66,7 @@ void render_layer_state(void) {
     oled_write_P(PSTR("LAYER"), false);
     oled_write_P(PSTR("Lower"), layer_state_is(_LOWER));
     oled_write_P(PSTR("Raise"), layer_state_is(_RAISE));
-    oled_write_P(PSTR(" Mods"), layer_state_is(_MODS));
+    oled_write_P(PSTR(" ADJUST"), layer_state_is(_ADJUST));
 }
 
 void render_keylock_status(uint8_t led_usb_state) {
@@ -142,11 +133,11 @@ void oled_task_user(void) {
         oled_off();
         return;
     }
-#if !defined(SPLIT_KEYBOARD)
+//#if !defined(SPLIT_KEYBOARD)
     else {
         oled_on();
     }
-#endif
+//#endif
     if (is_keyboard_master()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
