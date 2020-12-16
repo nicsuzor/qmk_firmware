@@ -1,6 +1,10 @@
 #include "nic.h"
+
+#ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix_user.h"
 #include "rgb_matrix.h"
+#endif
+
 #include "lib/lib8tion/lib8tion.h"
 #include QMK_KEYBOARD_H
 
@@ -11,17 +15,12 @@
 
 userspace_config_t userspace_config;
 
-#define CURRY_UNICODE_MODE 1
-
-void rgb_matrix_update_pwm_buffers(void);
-
-
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 
 void keyboard_pre_init_user(void) {
     userspace_config.raw = eeconfig_read_user();
 #ifdef USE_INTERNAL_RESISTORS
-    // In case of log due to no resistors:
+    // In case of lag due to no resistors:
     setPinInputHigh(D0);
     setPinInputHigh(D1);
 #endif
@@ -41,6 +40,7 @@ __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
 #if defined(DEBUG_ENABLE)
+    debug_enable=true;
     // Customise these values to desired behaviour
   debug_enable=true;
   //debug_matrix=true;
@@ -59,7 +59,7 @@ __attribute__((weak)) void shutdown_keymap(void) {}
 // On RESET, set all RGB to red, shutdown the keymap.
 void shutdown_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
-    rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
+    rgb_matrix_shutdown();
 #endif
     shutdown_keymap();
 }
@@ -70,8 +70,8 @@ __attribute__((weak)) void suspend_power_down_keymap(void) {}
 void suspend_power_down_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_set_suspend_state(true);
-    suspend_power_down_keymap();
 #endif
+    suspend_power_down_keymap();
 }
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
@@ -96,7 +96,7 @@ __attribute__((weak)) void matrix_scan_user(void) {
 
 #if defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb();
-#endif  // RGBLIGHT_ENABLE
+#endif  // RGB_MATRIX_ENABLE
 
     matrix_scan_keymap();
 }
@@ -108,13 +108,10 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(RGB_MATRIX_ENABLE)
-    if (userspace_config.rgb_layer_change) {
-            uint8_t layer = get_highest_layer(state);
-            rgb_matrix_by_layer(layer);
-            dprintf("Set layer change RGB to: %u\n", layer);
-        }
+    uint8_t layer = get_highest_layer(state);
+    rgb_matrix_by_layer(layer);
+    dprintf("Set layer change RGB to: %u\n", layer);
 #endif
-
     return layer_state_set_keymap(state);
 }
 
@@ -146,6 +143,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
             }
             break;
+        case KC_RGB_T: // Reset RGB status
+#if defined(RGB_MATRIX_ENABLE)
+            set_default_rgb();
+#endif
 
 #ifdef UNICODE_ENABLE
         case UC_FLIP:  // (ノಠ痊ಠ)ノ彡┻━┻

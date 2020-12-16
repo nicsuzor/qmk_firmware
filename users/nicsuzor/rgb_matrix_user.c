@@ -18,6 +18,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 
     RGB rgb = hsv_to_rgb(hsv);
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        dprintf("rgblight layer change setting led: %u\n", i);
         if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
@@ -39,37 +40,35 @@ void check_default_layer(uint8_t mode, uint8_t type) {
 
 void set_default_rgb(void) {
 #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_enable();
     dprint("Setting default RGB state.");
+    eeconfig_update_rgb_matrix_default();
+          rgb_matrix_enable();
 #endif
-#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-    dprintf("RGB Matrix setting mode: %u\n", RGB_MATRIX_TYPING_HEATMAP);
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
-#endif
-
 }
 
 void rgb_matrix_by_layer(int layer) {
+
+#ifdef RGB_MATRIX_ENABLE
     switch (layer) {
         case _RAISE:
             rgb_matrix_layer_helper(HSV_CORAL, RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-            dprintf("rgblight layer change raise: %u\n", layer);
+            dprintf("rgb matrix layer change raise: %u\n", layer);
             break;
         case _LOWER:
             rgb_matrix_layer_helper(HSV_MAGENTA, RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-            dprintf("rgblight layer change lower: %u\n", layer);
+            dprintf("rgb matrix layer change lower: %u\n", layer);
             break;
         case _ADJUST:
             rgb_matrix_layer_helper(HSV_GOLD, RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-            dprintf("rgblight layer change adjust: %u\n", layer);
+            dprintf("rgb matrix layer change adjust: %u\n", layer);
             break;
         default: {
             rgb_matrix_layer_helper(HSV_CYAN, RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-            dprintf("rgblight layer change default: %u\n", layer);
+            dprintf("rgb matrix layer change default: %u\n", layer);
             break;
         }
     }
-
+#endif
 }
 
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
@@ -79,15 +78,14 @@ void rgb_matrix_indicators_user(void) {
 
 }
 
+void rgb_matrix_shutdown(void) {
+    rgb_matrix_layer_helper(HSV_CYAN, RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+}
+
 void keyboard_post_init_rgb(void) {
-    /*if (userspace_config.rgb_matrix_idle_anim) {
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
-    }*/
+
 }
 
 void matrix_scan_rgb(void) {
-    /*if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 15000) {
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
-    }*/
-}
 
+}

@@ -32,7 +32,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________BLANK___________________         _______, _______, _______, _______, _______, _______
 
 #define _______________GRID_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, KC_NO, KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
-#define _____________DOUBLE_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, KC_NO, KC_LALT, LOWER,     KC_SPC,     RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
+#define _____________DOUBLE_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, KC_NO,  KC_LALT,LOWER,     KC_SPC,     RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 
 
 #define _________________LOWER_L1__________________         KC_NO, KC_NO, KC_NO, LCTL(KC_PGUP), LCTL(KC_PGDN), KC_NO

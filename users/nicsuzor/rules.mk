@@ -12,6 +12,8 @@ TAP_DANCE_ENABLE        = no
 INDICATOR_LIGHTS		= no
 RGB_MATRIX_FRAMEBUFFER_EFFECTS  = yes
 
+
+
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += tap_dances.c
 endif
@@ -24,25 +26,12 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
     SRC += leader.c
 endif
 
-ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-    SRC += rgb_lighting_user.c
-    ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
-        OPT_DEFS += -DINDICATOR_LIGHTS
-    endif
-    ifeq ($(strip $(RGBLIGHT_TWINKLE)), yes)
-        OPT_DEFS += -DRGBLIGHT_TWINKLE
-    endif
-    ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
-        OPT_DEFS += -DRGBLIGHT_NOEEPROM
-    endif
-    ifeq ($(strip $(RGBLIGHT_STARTUP_ANIMATION)), yes)
-        OPT_DEFS += -DRGBLIGHT_STARTUP_ANIMATION
-    endif
-endif
 
 RGB_MATRIX_ENABLE ?= no
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
     SRC += rgb_matrix_user.c
+else
+
 endif
 
 ifdef CONSOLE_ENABLE

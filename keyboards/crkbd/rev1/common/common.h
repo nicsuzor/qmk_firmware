@@ -20,5 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rev1.h"
 
+#include "quantum.h"
+
 #define has_usb() is_keyboard_master()
 #define is_master is_keyboard_master()

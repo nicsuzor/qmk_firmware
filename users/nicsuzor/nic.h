@@ -13,10 +13,6 @@
 #   include "rgb_matrix_user.h"
 #endif
 
-#if defined(RGBLIGHT_ENABLE)
-#   include "rgb_lighting_user.h"
-#endif
-
 #if defined(KEYBOARD_lily58_rev1) & defined(PROTOCOL_LUFA)
 #    include "lufa.h"
 #    include "split_util.h"
@@ -86,6 +82,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state);
 layer_state_t default_layer_state_set_keymap(layer_state_t state);
 void          led_set_keymap(uint8_t usb_led);
 void          eeconfig_init_keymap(void);
+
 
 // clang-format off
 typedef union {
