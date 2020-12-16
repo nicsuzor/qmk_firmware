@@ -181,6 +181,12 @@ If you're having issues with serial communication, you can change this value, as
 * **`4`**: about 26kbps
 * **`5`**: about 20kbps
 
+```c
+#define SPLIT_TRANSPORT_MIRROR
+```
+
+This mirrors the master side matrix to the slave side for features that react or require knowledge of master side key presses on the slave side.
+
 ###  Hardware Configuration Options
 
 There are some settings that you may need to configure, based on how the hardware is set up. 
