@@ -15,10 +15,10 @@ AUTO_SHIFT_ENABLE = yes
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 
 OLED_DRIVER_ENABLE= no     # OLED display
-SSD1306OLED= no
 
 RGBLIGHT_ENABLE         = no
 RGB_MATRIX_ENABLE       = WS2812
 RGB_MATRIX_FRAMEBUFFER_EFFECTS = yes
+
 #RGB_MATRIX_ENABLE		= no
 SPLIT_TRANSPORT         = mirror

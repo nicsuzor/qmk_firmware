@@ -3,6 +3,9 @@
 // Use custom magic number so that when switching branches, EEPROM always gets reset
 #define EECONFIG_MAGIC_NUMBER (uint16_t)0x237
 
+#ifdef SSD1306OLED
+#undef SSD1306OLED
+#endif
 
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1

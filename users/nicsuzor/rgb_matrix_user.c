@@ -10,9 +10,23 @@ extern led_config_t g_led_config;
 #    define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #endif
 
-void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
+void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
+    HSV hsv = {hue, sat, val};
+    if (hsv.v > rgb_matrix_config.hsv.v) {
+        hsv.v = rgb_matrix_config.hsv.v;
+    }
 
-void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
+    RGB rgb = hsv_to_rgb(hsv);
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        }
+    }
+}
+
+void suspend_power_down_keymap(void) { }
+
+void suspend_wakeup_init_keymap(void) { }
 
 void check_default_layer(uint8_t mode, uint8_t type) {
 /*    switch (get_highest_layer(default_layer_state)) {
@@ -77,16 +91,3 @@ void matrix_scan_rgb(void) {
     }*/
 }
 
-void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
-    HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_config.hsv.v) {
-        hsv.v = rgb_matrix_config.hsv.v;
-    }
-
-    RGB rgb = hsv_to_rgb(hsv);
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-        }
-    }
-}
