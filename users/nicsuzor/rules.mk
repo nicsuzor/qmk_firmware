@@ -10,6 +10,7 @@ EXTRAKEY_ENABLE         = yes
 LEADER_ENABLE           = no
 TAP_DANCE_ENABLE        = no
 INDICATOR_LIGHTS		= no
+RGB_MATRIX_FRAMEBUFFER_EFFECTS  = yes
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += tap_dances.c

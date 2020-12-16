@@ -55,11 +55,11 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________RAISE_R3__________________         KC_PMNS, KC_1, KC_2, KC_3, KC_PSLS, KC_LSFT
 #define _________________RAISE_R4__________________         KC_PPLS, KC_P0, KC_P0, KC_PDOT, KC_COLN, TO(0)
 
-#define _________________ADJUST_L1_________________         RGB_MOD, KC_PSCR, KC_NO, LCTL(LSFT(KC_ESC)), LALT(KC_F4), LCTL(LSFT(KC_ESC))
-#define _________________ADJUST_L2_________________         MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  CG_NORM, RGB_TOG
+#define _________________ADJUST_L1_________________         RGB_MOD, RGB_TOG, KC_PSCR, LCTL(LSFT(KC_ESC)), LALT(KC_F4), LCTL(LSFT(KC_ESC))
+#define _________________ADJUST_L2_________________         MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  CG_NORM, KC_NO
 #define _________________ADJUST_L3_________________         RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T, RGB_IDL
 
-#define _________________ADJUST_R1_________________         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RESET
+#define _________________ADJUST_R1_________________         KC_NO, KC_NO, KC_NO, KC_NO, DEBUG, RESET
 #define _________________ADJUST_R2_________________         ___________________BLANK___________________
 #define _________________ADJUST_R3_________________         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0)
 

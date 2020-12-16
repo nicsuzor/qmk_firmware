@@ -13,5 +13,5 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = no
 RGB_MATRIX_ENABLE = WS2812
-
+USE_INTERNAL_RESISTORS = no
 

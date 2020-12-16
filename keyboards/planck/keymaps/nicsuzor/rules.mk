@@ -5,7 +5,8 @@
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = no        # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes         # Console for debug
+DEBUG_ENABLE	= yes
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
@@ -22,3 +23,5 @@ TAP_DANCE_ENABLE = no
 LTO_ENABLE = no
 
 RGB_MATRIX_ENABLE = WS2812
+
+AUTO_SHIFT_ENABLE = yes

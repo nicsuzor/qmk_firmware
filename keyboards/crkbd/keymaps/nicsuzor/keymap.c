@@ -57,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_crkbd_wrapper(
-    ________________NUMBER_LEFT________________,                    ________________NUMBER_RIGHT_______________,
     _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________,
     _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________,
+    _________________ADJUST_L2_________________,                    _________________ADJUST_R3_________________,
                 KC_LALT, KC_LCTL, LT(_LOWER, KC_SPC), LT(_RAISE, KC_BSPC), KC_DEL, KC_RGUI
 )
 };
