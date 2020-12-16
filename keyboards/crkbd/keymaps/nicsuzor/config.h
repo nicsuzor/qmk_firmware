@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_SPLIT { 27, 27 }
+#endif
 
-#define RGB_MATRIX_SPLIT { 21, 21 }
-#define DRIVER_LED_TOTAL 42
+#define DRIVER_LED_TOTAL 54
