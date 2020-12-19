@@ -17,8 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
+#include QMK_KEYBOARD_H
 #include "rev1.h"
+#include "quantum.h"
 
 #define has_usb() is_keyboard_master()
 extern uint8_t is_master;
