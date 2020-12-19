@@ -26,24 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGB_MATRIX_SPLIT { 27, 27 }
 #    define DRIVER_LED_TOTAL 54
 #define MASTER_LEFT
-
-#define USE_SERIAL
-#define USE_SERIAL_PD2
-#define SOFT_SERIAL_PIN D2
-#define RGB_DI_PIN D3
 #define WS2812_DRIVER = pwm
 
-/*
-
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
-// #define SSD1306OLED
-//#undef USE_I2C
-
-#undef SSD1306OLED
-
-//#define USE_SERIAL_PD2
-
-*/
+// #undef SSD1306OLED
