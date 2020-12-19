@@ -17,10 +17,14 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
     }
 
     RGB rgb = hsv_to_rgb(hsv);
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        dprintf("rgblight layer change setting led: %u\n", i);
-        if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+    if (led_type == -1) {
+        rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+    } else {
+        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            dprintf("rgblight layer change setting led: %u\n", i);
+            if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+            }
         }
     }
 }
