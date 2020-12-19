@@ -1,11 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "nic.h"
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 
 // clang-format off
 #define LAYOUT_split_3x6_3( \

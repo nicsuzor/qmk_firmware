@@ -20,7 +20,6 @@ RGBLIGHT_ENABLE         = no
 RGB_MATRIX_ENABLE       = WS2812
 RGB_MATRIX_FRAMEBUFFER_EFFECTS = yes
 
-SPLIT_KEYBOARD = yes
 SPLIT_TRANSPORT = mirror    # for when Split Mirroring drops, it will maintain mirroring functionality
 
 #RGB_MATRIX_ENABLE		= no
