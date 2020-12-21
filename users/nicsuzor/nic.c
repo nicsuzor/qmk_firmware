@@ -30,25 +30,27 @@ void keyboard_pre_init_user(void) {
 
 __attribute__((weak)) void matrix_init_keymap(void) {}
 
+__attribute__((weak)) void set_default_rgb(void) {}
+
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
+
+    set_default_rgb();
     matrix_init_keymap();
 }
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
-    debug_enable=true;
 #if defined(DEBUG_ENABLE)
+    debug_enable=true;
     // Customise these values to desired behaviour
   //debug_matrix=true;
   //debug_keyboard=true;
   //debug_mouse=true;
 #endif
-#if defined(RGB_MATRIX_ENABLE)
-    set_default_rgb();
-#endif
+
     keyboard_post_init_keymap();
 }
 

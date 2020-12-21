@@ -15,9 +15,10 @@ AUTO_SHIFT_ENABLE = yes
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 
 OLED_DRIVER_ENABLE= no     # OLED display
+AUDIO_ENABLE			= no
 
 RGBLIGHT_ENABLE         = no
-RGB_MATRIX_ENABLE       = no #WS2812
+RGB_MATRIX_ENABLE       = WS2812
 RGB_MATRIX_FRAMEBUFFER_EFFECTS = yes
 
 #SPLIT_TRANSPORT = mirror    # for when Split Mirroring drops, it will maintain mirroring functionality

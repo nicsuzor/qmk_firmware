@@ -11,22 +11,29 @@ extern led_config_t g_led_config;
 #endif
 
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
-    HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_config.hsv.v) {
-        hsv.v = rgb_matrix_config.hsv.v;
+    if (val > rgb_matrix_config.hsv.v) {
+        val = rgb_matrix_config.hsv.v;
     }
 
+#ifdef RGBLIGHT_ENABLE
+    rgblight_sethsv(hue, sat, val)
+#endif
+#ifdef RGB_MATRIX_ENABLE
+    HSV hsv = {hue, sat, val};
     RGB rgb = hsv_to_rgb(hsv);
     if (led_type == -1) {
         rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
     } else {
-        if (led_type == -1 || HAS_FLAGS(g_led_config.flags[i], led_type)) {
-            dprintf("rgblight layer change setting led: %u\n", i);
-            if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+            if (led_type == -1 || HAS_FLAGS(g_led_config.flags[i], led_type)) {
+                dprintf("rgblight layer change setting led: %u\n", i);
+                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+                }
             }
         }
     }
+#endif
 }
 
 void suspend_power_down_keymap(void) { }
@@ -43,15 +50,52 @@ void check_default_layer(uint8_t mode, uint8_t type) {
 }
 
 void set_default_rgb(void) {
+    dprint("Setting default RGB state, if applicable.");
 #ifdef RGB_MATRIX_ENABLE
-    dprint("Setting default RGB state.");
     eeconfig_update_rgb_matrix_default();
-          rgb_matrix_enable();
+  rgb_matrix_enable();
 #endif
+
+#ifdef BACKLIGHT_ENABLE
+    backlight_enable();
+    backlight_level(3);
+#endif
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable(); // Enable RGB by default
+    rgblight_sethsv(0, 255, 70);  // Set default HSV - red hue, full saturation, full brightness
+    #ifdef RGBLIGHT_ANIMATIONS
+        rgblight_mode(0);
+        //rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2); // set to RGB_RAINBOW_SWIRL by default
+    #endif
+#endif
+    eeconfig_update_kb(0);
 }
 
 void rgb_matrix_by_layer(int layer) {
+#ifdef RGBLIGHT_ENABLE
+    // change the color any time a layer switches
+    // This function is called every time a layer switches, no matter how it switches
 
+    switch (layer) {
+        //switch (biton32(state)) {
+            case _QWERTY:
+                rgblight_sethsv(115, 255, 70);
+                break;
+            case _LOWER:
+                rgblight_sethsv(213, 255, 70);
+                break;
+            case _RAISE:
+                rgblight_sethsv(0, 255, 70);
+                break;
+            case _ADJUST:
+                rgblight_sethsv(60, 255, 70);
+                break;
+            default: //  for any other layers, or the default layer
+                rgblight_sethsv(240, 150, 70);
+                break;
+        }
+    }
+#endif
 #ifdef RGB_MATRIX_ENABLE
     switch (layer) {
         case _RAISE:
