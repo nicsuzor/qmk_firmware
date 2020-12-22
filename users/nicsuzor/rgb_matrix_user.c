@@ -36,9 +36,17 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 #endif
 }
 
-void suspend_power_down_keymap(void) { }
+void suspend_power_down_keymap(void) {
+#if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(true);
+#endif
+}
 
-void suspend_wakeup_init_keymap(void) { }
+void suspend_wakeup_init_keymap(void) {
+#if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(false);
+#endif
+}
 
 void check_default_layer(uint8_t mode, uint8_t type) {
 /*    switch (get_highest_layer(default_layer_state)) {
@@ -54,6 +62,7 @@ void set_default_rgb(void) {
 #ifdef RGB_MATRIX_ENABLE
     eeconfig_update_rgb_matrix_default();
     rgb_matrix_set_flags(LED_FLAG_ALL);
+    rgb_matrix_set_color_all(RGB_PURPLE);
 #endif
 
 #ifdef BACKLIGHT_ENABLE

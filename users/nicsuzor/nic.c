@@ -67,9 +67,7 @@ void shutdown_user(void) {
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 
 void suspend_power_down_user(void) {
-#if defined(RGB_MATRIX_ENABLE)
-    rgb_matrix_set_suspend_state(true);
-#endif
+
     suspend_power_down_keymap();
 }
 
@@ -139,7 +137,6 @@ void eeconfig_init_user(void) {
 #endif
     eeconfig_update_user(userspace_config.raw);
     eeconfig_init_keymap();
-    keyboard_init();
 
 }
 
@@ -165,6 +162,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 #if defined(RGB_MATRIX_ENABLE)
         case RGBRST: // Reset RGB status
+            dprint("Setting default RGB state");
             if (record->event.pressed) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
                 set_default_rgb();
@@ -183,7 +181,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 #endif
-
+        case KC_RGB_T:
+            if (record->event.pressed) {
+#ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_enable_noeeprom();
+#endif
+            }
+            break;
 #ifdef UNICODE_ENABLE
         case UC_FLIP:  // (ノಠ痊ಠ)ノ彡┻━┻
             if (record->event.pressed) {
