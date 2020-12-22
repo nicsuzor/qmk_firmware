@@ -25,13 +25,12 @@ void keyboard_pre_init_user(void) {
 
 __attribute__((weak)) void matrix_init_keymap(void) {}
 
-__attribute__((weak)) void set_default_rgb(void) {}
-
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
-
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     set_default_rgb();
+#endif
     matrix_init_keymap();
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
@@ -77,7 +76,7 @@ void suspend_power_down_user(void) {
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 
 void suspend_wakeup_init_user(void) {
-#if defined(RGB_MATRIX_ENABLE)
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     set_default_rgb();
 #endif
     suspend_wakeup_init_keymap();
@@ -122,14 +121,26 @@ __attribute__((weak)) void led_set_keymap(uint8_t usb_led) {}
 // Any custom LED code goes here.
 void led_set_user(uint8_t usb_led) { led_set_keymap(usb_led); }
 
+
+
+__attribute__((weak)) void eeconfig_init_kb(void) {
+    eeconfig_init_user();
+}
+
 __attribute__((weak)) void eeconfig_init_keymap(void) {}
 
 void eeconfig_init_user(void) {
+    dprintf("Reseting EEPROM (user)");
+
     userspace_config.raw              = 0;
     userspace_config.rgb_layer_change = true;
+#ifdef RGB_MATRIX_ENABLE
+    set_default_rgb();
+#endif
     eeconfig_update_user(userspace_config.raw);
     eeconfig_init_keymap();
     keyboard_init();
+
 }
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
@@ -143,11 +154,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
             }
             break;
-#if defined(RGB_MATRIX_ENABLE)
-        case KC_RGB_T: // Reset RGB status
-            set_default_rgb();
+        case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
+            if (!record->event.pressed)
+                send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10); // SS_TAP(X_ENTER)), 10);
             break;
-        case RGBRST:
+        case EPRM:
+            if (record->event.pressed) {
+                eeconfig_init();
+            }
+            return false;
+#if defined(RGB_MATRIX_ENABLE)
+        case RGBRST: // Reset RGB status
+            if (record->event.pressed) {
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+                set_default_rgb();
+#endif
+            }
+            break;
+        case RGB_MOD:
             if (record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
                 rgblight_step();
@@ -157,6 +181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgb_matrix_step();
 #endif
             }
+            break;
 #endif
 
 #ifdef UNICODE_ENABLE

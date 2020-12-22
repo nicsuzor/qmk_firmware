@@ -7,7 +7,7 @@ CONVERT_TO_PROTON_C = yes
 
 BOOTMAGIC_ENABLE        = no
 MOUSEKEY_ENABLE         = no
-CONSOLE_ENABLE          = no
+CONSOLE_ENABLE          = yes
 DEBUG_ENABLE			= no
 COMMAND_ENABLE          = no
 AUTO_SHIFT_ENABLE = yes

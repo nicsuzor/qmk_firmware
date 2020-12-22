@@ -18,6 +18,8 @@
 #    include "split_util.h"
 #endif
 
+void          eeconfig_init_keymap(void);
+
 /* Define layer names */
 enum userspace_layers {
     _QWERTY  = 0,
@@ -31,15 +33,12 @@ enum userspace_custom_keycodes {
     KC_MAKE,            // Run keyboard's customized make command
     KC_RGB_T,           // Toggles RGB Layer Indication mode
     RGB_IDL,            // RGB Idling animations
-    KC_CCCV,            // Hold to copy, tap to paste
+    RGBRST,            // Reset RGB
+    EPRM,               // Reset eeprom
     UC_FLIP,            // (ಠ痊ಠ)┻━┻
     UC_TABL,            // ┬─┬ノ( º _ ºノ)
     UC_SHRG,            // ¯\_(ツ)_/¯
     UC_DISA,            // ಠ_ಠ
-    KC_DT1,
-    KC_DT2,
-    KC_DT3,
-    KC_DT4,
     NEW_SAFE_RANGE  // use "NEWPLACEHOLDER for keymap specific codes
 };
 #define LOWER MO(_LOWER)
