@@ -8,11 +8,6 @@
 #include "lib/lib8tion/lib8tion.h"
 #include QMK_KEYBOARD_H
 
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
-
 userspace_config_t userspace_config;
 
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
@@ -38,6 +33,10 @@ void matrix_init_user(void) {
 
     set_default_rgb();
     matrix_init_keymap();
+    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
+#ifdef SSD1306OLED
+    iota_gfx_init(!has_usb());   // turns on the display
+#endif
 }
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
@@ -144,9 +143,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
             }
             break;
-        case KC_RGB_T: // Reset RGB status
 #if defined(RGB_MATRIX_ENABLE)
+        case KC_RGB_T: // Reset RGB status
             set_default_rgb();
+            break;
+        case RGBRST:
+            if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+                rgblight_step();
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_step();
+#endif
+            }
 #endif
 
 #ifdef UNICODE_ENABLE

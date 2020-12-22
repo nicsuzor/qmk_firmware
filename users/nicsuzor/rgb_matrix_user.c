@@ -53,7 +53,7 @@ void set_default_rgb(void) {
     dprint("Setting default RGB state, if applicable.");
 #ifdef RGB_MATRIX_ENABLE
     eeconfig_update_rgb_matrix_default();
-  rgb_matrix_enable();
+    rgb_matrix_enable();
 #endif
 
 #ifdef BACKLIGHT_ENABLE

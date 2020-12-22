@@ -7,10 +7,12 @@ CONVERT_TO_PROTON_C = yes
 
 BOOTMAGIC_ENABLE        = no
 MOUSEKEY_ENABLE         = no
-CONSOLE_ENABLE          = yes
-DEBUG_ENABLE			= yes
+CONSOLE_ENABLE          = no
+DEBUG_ENABLE			= no
 COMMAND_ENABLE          = no
 AUTO_SHIFT_ENABLE = yes
+
+VIA_ENABLE          = yes         # Enable VIA
 
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 

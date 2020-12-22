@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_7,    KC_8,    KC_9,     KC_PLUS, \
     KC_4,    KC_5,    KC_6,     KC_EQL, \
     KC_1,    KC_2,    KC_3,     KC_ENTER,         \
-    TO(_UPPER), KC_0,    KC_DOT, RGBRST       \
+    KC_0,    KC_DOT,   KC_DEL, RGBRST     \
    ),
 [_UPPER] = LAYOUT_5x4(
     KC_ESC , KC_SLSH, KC_ASTR, KC_MINUS, \
@@ -62,48 +62,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(_BASE), KC_0,    KC_DOT, RGBRST         \
    ),
 };
-
-void matrix_init_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    eeconfig_update_rgb_matrix_default();
-    rgb_matrix_enable();
-#endif
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable(); // Enable RGB by default
-    rgblight_sethsv(0, 255, 70);
-#endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-    iota_gfx_init(!has_usb());   // turns on the display
-#endif
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    UPDATE_KEY_STATUS(keycode, record);
-    bool result = false;
-    switch (keycode) {
-        case BASE:
-            layer_on(_BASE);
-            break;
-        case UPPER:
-            layer_on(_UPPER);
-              wmbreak;
-        case RGBRST:
-            if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-                rgblight_step();
-#endif
-
-#ifdef RGB_MATRIX_ENABLE
-                rgb_matrix_step();
-#endif
-            }
-            result = false;
-            break;
-        default:
-            result = true;
-            break;
-    }
-  return result;
-}
 

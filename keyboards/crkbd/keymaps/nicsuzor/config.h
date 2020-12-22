@@ -20,13 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-//#undef USE_I2C // I2C doesn't work for split common
-
 //#    define RGB_MATRIX_SPLIT { 27, 27 }
 #    define DRIVER_LED_TOTAL 54
 #define MASTER_LEFT
-#define WS2812_DRIVER = pwm
+//#define WS2812_DRIVER = pwm
 
 // #undef SSD1306OLED
 

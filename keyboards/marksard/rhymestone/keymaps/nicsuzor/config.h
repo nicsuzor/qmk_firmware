@@ -42,6 +42,10 @@
 #undef MATRIX_COLS
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 5
+
+
+#    define DRIVER_LED_TOTAL 54
+
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
