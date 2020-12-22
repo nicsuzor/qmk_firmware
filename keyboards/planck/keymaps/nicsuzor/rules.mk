@@ -31,5 +31,5 @@ RGB_MATRIX_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 
 ifeq ($(strip $(KEYBOARD)), planck/rev6)
-RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = yes #WS2812
 endif
