@@ -16,7 +16,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
     }
 
 #ifdef RGBLIGHT_ENABLE
-    rgblight_sethsv(hue, sat, val)
+    rgblight_sethsv(hue, sat, val);
 #endif
 #ifdef RGB_MATRIX_ENABLE
     HSV hsv = {hue, sat, val};
@@ -86,23 +86,21 @@ void rgb_matrix_by_layer(int layer) {
     // This function is called every time a layer switches, no matter how it switches
 
     switch (layer) {
-        //switch (biton32(state)) {
-            case _QWERTY:
-                rgblight_sethsv(115, 255, 70);
-                break;
-            case _LOWER:
-                rgblight_sethsv(213, 255, 70);
-                break;
-            case _RAISE:
-                rgblight_sethsv(0, 255, 70);
-                break;
-            case _ADJUST:
-                rgblight_sethsv(60, 255, 70);
-                break;
-            default: //  for any other layers, or the default layer
-                rgblight_sethsv(240, 150, 70);
-                break;
-        }
+        case _QWERTY:
+            rgblight_sethsv(115, 255, 70);
+            break;
+        case _LOWER:
+            rgblight_sethsv(213, 255, 70);
+            break;
+        case _RAISE:
+            rgblight_sethsv(0, 255, 70);
+            break;
+        case _ADJUST:
+            rgblight_sethsv(60, 255, 70);
+            break;
+        default: //  for any other layers, or the default layer
+            rgblight_sethsv(240, 150, 70);
+            break;
     }
 #endif
 #ifdef RGB_MATRIX_ENABLE

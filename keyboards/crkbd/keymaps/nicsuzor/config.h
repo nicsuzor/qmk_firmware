@@ -22,7 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#    define RGB_MATRIX_SPLIT { 27, 27 }
 //#    define DRIVER_LED_TOTAL 54
-#define MASTER_LEFT
+#define EE_HANDS
+//#define MASTER_LEFT
+//#define MASTER_RIGHT
+
 //#define WS2812_DRIVER = pwm
 
 // #undef SSD1306OLED

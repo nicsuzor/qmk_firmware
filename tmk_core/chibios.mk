@@ -334,6 +334,7 @@ ST_LINK_CLI ?= st-link_cli
 ST_FLASH ?= st-flash
 
 define EXEC_DFU_UTIL
+	printf "Running: $(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin"
 	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
 		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
 		sleep 5 ;\

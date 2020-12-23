@@ -26,6 +26,12 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
     SRC += leader.c
 endif
 
+RGBLIGHT_ENABLE ?= no
+ifneq ($(strip $(RGBLIGHT_ENABLE)), no)
+    SRC += rgb_matrix_user.c
+else
+
+endif
 
 RGB_MATRIX_ENABLE ?= no
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
