@@ -86,13 +86,21 @@ static void gpt_cb8(GPTDriver *gptp);
 
 #define START_CHANNEL_1()        \
     gptStart(&GPTD6, &gpt6cfg1); \
-    gptStartContinuous(&GPTD6, 2U)
+    gptStartContinuous(&GPTD6, 2U); \
+    palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG)
 #define START_CHANNEL_2()        \
     gptStart(&GPTD7, &gpt7cfg1); \
-    gptStartContinuous(&GPTD7, 2U)
-#define STOP_CHANNEL_1() gptStopTimer(&GPTD6)
-#define STOP_CHANNEL_2() gptStopTimer(&GPTD7)
-#define RESTART_CHANNEL_1() \
+    gptStartContinuous(&GPTD7, 2U); \
+    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG)
+#define STOP_CHANNEL_1()          \
+    gptStopTimer(&GPTD6);         \
+    palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL); \
+    palSetPad(GPIOA, 4)
+#define STOP_CHANNEL_2()         \
+    gptStopTimer(&GPTD7);        \
+    palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL); \
+    palSetPad(GPIOA, 5)
+    #define RESTART_CHANNEL_1() \
     STOP_CHANNEL_1();       \
     START_CHANNEL_1()
 #define RESTART_CHANNEL_2() \
@@ -274,6 +282,12 @@ void audio_init() {
     dacStart(&DACD2, &dac1cfg2);
 
     /*
+     * Start the note timer
+     */
+    gptStart(&GPTD8, &gpt8cfg1);
+    gptStartContinuous(&GPTD8, 2U);
+
+    /*
      * Starting GPT6/7 driver, it is used for triggering the DAC.
      */
     START_CHANNEL_1();
@@ -287,10 +301,12 @@ void audio_init() {
 
     audio_initialized = true;
 
+    stop_all_notes();
+}
+
+void audio_startup() {
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
-    } else {
-        stop_all_notes();
     }
 }
 
@@ -630,6 +646,9 @@ bool is_playing_notes(void) { return playing_notes; }
 bool is_audio_on(void) { return (audio_config.enable != 0); }
 
 void audio_toggle(void) {
+    if (audio_config.enable) {
+        stop_all_notes();
+    }
     audio_config.enable ^= 1;
     eeconfig_update_audio(audio_config.raw);
     if (audio_config.enable) {

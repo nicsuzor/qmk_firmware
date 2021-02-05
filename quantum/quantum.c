@@ -391,6 +391,29 @@ __attribute__((weak)) const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 };
 
+/* Bit-Packed look-up table to convert an ASCII character to whether
+ * [Space] needs to be sent after the keycode
+ */
+__attribute__((weak)) const uint8_t ascii_to_dead_lut[16] PROGMEM = {
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+};
+
 /* Look-up table to convert an ASCII character to a keycode.
  */
 __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
@@ -531,6 +554,7 @@ void send_char(char ascii_code) {
     uint8_t keycode    = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
     bool    is_shifted = PGM_LOADBIT(ascii_to_shift_lut, (uint8_t)ascii_code);
     bool    is_altgred = PGM_LOADBIT(ascii_to_altgr_lut, (uint8_t)ascii_code);
+    bool    is_dead    = PGM_LOADBIT(ascii_to_dead_lut, (uint8_t)ascii_code);
 
     if (is_shifted) {
         register_code(KC_LSFT);
@@ -544,6 +568,9 @@ void send_char(char ascii_code) {
     }
     if (is_shifted) {
         unregister_code(KC_LSFT);
+    }
+    if (is_dead) {
+        tap_code(KC_SPACE);
     }
 }
 
@@ -571,32 +598,22 @@ void tap_random_base64(void) {
 #endif
     switch (key) {
         case 0 ... 25:
-            register_code(KC_LSFT);
-            register_code(key + KC_A);
-            unregister_code(key + KC_A);
-            unregister_code(KC_LSFT);
+            send_char(key + 'A');
             break;
         case 26 ... 51:
-            register_code(key - 26 + KC_A);
-            unregister_code(key - 26 + KC_A);
+            send_char(key - 26 + 'a');
             break;
         case 52:
-            register_code(KC_0);
-            unregister_code(KC_0);
+            send_char('0');
             break;
         case 53 ... 61:
-            register_code(key - 53 + KC_1);
-            unregister_code(key - 53 + KC_1);
+            send_char(key - 53 + '1');
             break;
         case 62:
-            register_code(KC_LSFT);
-            register_code(KC_EQL);
-            unregister_code(KC_EQL);
-            unregister_code(KC_LSFT);
+            send_char('+');
             break;
         case 63:
-            register_code(KC_SLSH);
-            unregister_code(KC_SLSH);
+            send_char('/');
             break;
     }
 }
@@ -639,6 +656,26 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
+#if defined(AUDIO_ENABLE)
+    // There are some tasks that need to be run a little bit
+    // after keyboard startup, or else they will not work correctly
+    // because of interaction with the USB device state, which
+    // may still be in flux...
+    //
+    // At the moment the only feature that needs this is the
+    // startup song.
+    static bool     delayed_tasks_run  = false;
+    static uint16_t delayed_task_timer = 0;
+    if (!delayed_tasks_run) {
+        if (!delayed_task_timer) {
+            delayed_task_timer = timer_read();
+        } else if (timer_elapsed(delayed_task_timer) > 300) {
+            audio_startup();
+            delayed_tasks_run = true;
+        }
+    }
+#endif
+
 #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
 #endif
@@ -708,20 +745,7 @@ void send_byte(uint8_t number) {
 }
 
 void send_nibble(uint8_t number) {
-    switch (number) {
-        case 0:
-            register_code(KC_0);
-            unregister_code(KC_0);
-            break;
-        case 1 ... 9:
-            register_code(KC_1 + (number - 1));
-            unregister_code(KC_1 + (number - 1));
-            break;
-        case 0xA ... 0xF:
-            register_code(KC_A + (number - 0xA));
-            unregister_code(KC_A + (number - 0xA));
-            break;
-    }
+    tap_code16(hex_to_keycode(number));
 }
 
 __attribute__((weak)) uint16_t hex_to_keycode(uint8_t hex) {

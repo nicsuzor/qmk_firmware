@@ -6,3 +6,6 @@ SRC += 	matrix.c \
 LIB_SRC += ssd1306.c
 
 QUANTUM_LIB_SRC += i2c.c serial.c
+
+# Disable unsupported hardware
+BACKLIGHT_SUPPORTED = no
