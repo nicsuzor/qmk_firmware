@@ -22,7 +22,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 
 #define ________________NUMBER_LEFT________________         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5
-#define ________________NUMBER_RIGHT_______________         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_TRNS
+#define ________________NUMBER_RIGHT_______________         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_BSPC
 
 #define _________________FUNC_1____________________         KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC_2____________________         KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -43,7 +43,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________LOWER_R1__________________         KC_CIRC, KC_AMPR, KC_ASTR, KC_AT, KC_HASH, KC_DEL
 #define _________________LOWER_R2__________________         KC_UNDS, KC_LBRC, KC_RBRC, KC_PIPE, KC_GRV, KC_TRNS
 #define _________________LOWER_R3__________________         KC_MINS, KC_LPRN, KC_RPRN, KC_SCLN, KC_EQL, KC_TRNS
-#define _________________LOWER_R4__________________         KC_PPLS, KC_LCBR, KC_RCBR, KC_COLN, KC_BSLS, TO(0)
+#define _________________LOWER_R4__________________         KC_PPLS, KC_LCBR, KC_RCBR, KC_COLN, KC_BSLS, KC_TRNS
 
 #define _________________RAISE_L1__________________         ________________NUMBER_LEFT________________
 #define _________________RAISE_L2__________________         _________________FUNC_1____________________

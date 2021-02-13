@@ -6,8 +6,8 @@
 CONVERT_TO_PROTON_C = yes
 
 BOOTMAGIC_ENABLE        = no
-MOUSEKEY_ENABLE         = no
-CONSOLE_ENABLE          = yes
+MOUSEKEY_ENABLE         = nfdo
+CONSOLE_ENABLE          = no
 DEBUG_ENABLE			= no
 COMMAND_ENABLE          = no
 AUTO_SHIFT_ENABLE = yes
@@ -18,8 +18,8 @@ OLED_DRIVER_ENABLE= no     # OLED display
 AUDIO_ENABLE			= no
 
 RGBLIGHT_ENABLE         = no
-RGB_MATRIX_ENABLE       = yes
-RGB_MATRIX_FRAMEBUFFER_EFFECTS = yes
+RGB_MATRIX_ENABLE       = no
+RGB_MATRIX_FRAMEBUFFER_EFFECTS = no
 
 SPLIT_TRANSPORT = mirror    # for when Split Mirroring drops, it will maintain mirroring functionality
 

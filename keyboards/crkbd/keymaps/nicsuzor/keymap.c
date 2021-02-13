@@ -21,7 +21,6 @@
   }
 #define LAYOUT_crkbd_wrapper(...)       LAYOUT_split_3x6_3(__VA_ARGS__)
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_crkbd_wrapper(
     _________________QWERTY_L1_________________,                _________________QWERTY_R1_________________,
