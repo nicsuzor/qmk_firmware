@@ -34,10 +34,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 27
+#    define DRIVER_LED_TOTAL RGBLED_NUM
 #define RGBLIGHT_LIMIT_VAL 120
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
+
+#define SPLIT_TRANSPORT_MIRROR
+#define RGB_MATRIX_SPLIT { 13, 13 }
 
 #define FORCE_NKRO
 
