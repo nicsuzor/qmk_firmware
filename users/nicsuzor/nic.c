@@ -41,6 +41,7 @@ void matrix_init_user(void) {
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
+debug_enable=true;
 #if defined(DEBUG_ENABLE)
     debug_enable=true;
     // Customise these values to desired behaviour

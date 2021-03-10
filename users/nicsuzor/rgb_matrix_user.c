@@ -1,8 +1,12 @@
 #include "nic.h"
-#include "rgb_matrix.h"
+
+#if defined(RGB_MATRIX_ENABLE)
+#    include "rgb_matrix.h"
+extern led_config_t g_led_config;
+#endif
+
 #include "lib/lib8tion/lib8tion.h"
 
-extern led_config_t g_led_config;
 
 #if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_crkbd)
 #    define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
@@ -11,14 +15,15 @@ extern led_config_t g_led_config;
 #endif
 
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
-    if (val > rgb_matrix_config.hsv.v) {
-        val = rgb_matrix_config.hsv.v;
-    }
+
 
 #ifdef RGBLIGHT_ENABLE
     rgblight_sethsv(hue, sat, val);
 #endif
 #ifdef RGB_MATRIX_ENABLE
+    if (val > rgb_matrix_config.hsv.v) {
+        val = rgb_matrix_config.hsv.v;
+    }
     HSV hsv = {hue, sat, val};
     RGB rgb = hsv_to_rgb(hsv);
     if (led_type == -1) {
@@ -134,7 +139,9 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void rgb_matrix_shutdown(void) {
+#ifdef RGB_MATRIX_ENABLE
     rgb_matrix_layer_helper(HSV_CYAN, RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+#endif
 }
 
 void keyboard_post_init_rgb(void) {

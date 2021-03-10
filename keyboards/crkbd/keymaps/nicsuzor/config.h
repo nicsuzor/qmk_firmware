@@ -20,17 +20,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#    define RGB_MATRIX_SPLIT { 27, 27 }
-//#    define DRIVER_LED_TOTAL 54
-#define EE_HANDS
-//#define MASTER_LEFT
-//#define MASTER_RIGHT
-
-//#define WS2812_DRIVER = pwm
-
-// #undef SSD1306OLED
+#define MASTER_LEFT
 
 #ifdef AUDIO_ENABLE
 #    define NO_MUSIC_MODE
 #    define AUDIO_CLICKY
 #endif
+
+#undef USE_I2C
+#define USE_SERIAL_PD2
+#define USE_SERIAL
+#undef USE_MATRIX_I2C
+//#define SELECT_SOFT_SERIAL_SPEED 3
+#undef SOFT_SERIAL_PIN
+#define SOFT_SERIAL_PIN A10
+
+#ifdef SPLIT_TRANSPORT_MIRROR
+#undef SPLIT_TRANSPORT_MIRROR
+#endif
+
+/* ws2812 RGB LED */
+#undef RGB_DI_PIN
+#define RGB_DI_PIN A9
+
+
+#define WS2812_PWM_DRIVER PWMD2
+#define WS2812_PWM_CHANNEL 2
+#define WS2812_PWM_PAL_MODE 1
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
+#define WS2812_DMA_CHANNEL 2
+
+/* key matrix size */
+// Rows are doubled-up
+#undef MATRIX_ROWS
+#undef MATRIX_COLS
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 6
+#define MATRIX_ROW_PINS { B5, B4, B3, B2 }
+
+// wiring of each half
+#define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14 }
+// #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
+
+
+#define DRIVER_LED_TOTAL 58
+#undef RGBLED_NUM
+//#define RGBLED_NUM 58
+//#define RGBLIGHT_SPLIT
+//#define RGBLED_SPLIT { 27, 27 }
+
+#ifdef RGB_MATRIX_ENABLE
+#undef RGB_MATRIX_ENABLE
+#endif
+
+#define RGBLIGHT_ANIMATIONS
+
+#define SPLIT_USB_DETECT
+
+#define RGBLIGHT_LAYERS
+#define PAL_USE_CALLBACKS TRUE
+#define HAL_USE_SERIAL TRUE
