@@ -2,13 +2,16 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
+MCU = STM32F303
+BOARD = QMK_PROTON_C
+
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = no        # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no        	    # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
@@ -18,11 +21,16 @@ OLED_DRIVER_ENABLE= no     # OLED display
 SSD1306OLED= no
 KEYLOG = no
 TAP_DANCE_ENABLE = no
-PROTOCOL_LUFA = yes
 SPLIT_KEYBOARD = yes
-USE_MATRIX_I2C = yes
+# USE_MATRIX_I2C = yes
+SPLIT_TRANSPORT = none    # for when Split Mirroring drops, it will maintain mirroring functionality
+ENCODER_ENABLE = no       # ENables the use of one or more encoders
 
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
+USE_I2C = no
+# WS2812_DRIVER = pwm
+
+RGB_MATRIX_DRIVER = WS2812
+RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = no
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

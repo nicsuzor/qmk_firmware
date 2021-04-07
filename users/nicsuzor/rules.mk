@@ -10,9 +10,11 @@ EXTRAKEY_ENABLE         = yes
 LEADER_ENABLE           = no
 TAP_DANCE_ENABLE        = no
 INDICATOR_LIGHTS		= no
-RGB_MATRIX_FRAMEBUFFER_EFFECTS  = yes
 
-
+BIN_FOLDER = /mnt/e/bin
+cp: $(FIRMWARE_FORMAT)
+	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to $(BIN_FOLDER)/$(TARGET).$(FIRMWARE_FORMAT)" | $(AWK_CMD)
+	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(BIN_FOLDER)/$(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += tap_dances.c
@@ -38,12 +40,6 @@ ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
     SRC += rgb_matrix_user.c
 else
 
-endif
-
-ifdef CONSOLE_ENABLE
-    ifeq ($(strip $(KEYLOGGER_ENABLE)), yes)
-        OPT_DEFS += -DKEYLOGGER_ENABLE
-    endif
 endif
 
 ifeq ($(strip $(MAKE_BOOTLOADER)), yes)

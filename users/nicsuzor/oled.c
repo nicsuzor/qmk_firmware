@@ -25,33 +25,7 @@ static const char PROGMEM code_to_name[0xFF] = {
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
 };
 
-// clang-format on
-void add_keylog(uint16_t keycode);
-
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
-
-void add_keylog(uint16_t keycode) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
-        keycode = keycode & 0xFF;
-    } else if (keycode > 0xFF) {
-        keycode = 0;
-    }
-
-    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
-        keylog_str[i] = keylog_str[i - 1];
-    }
-
-    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
-        keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
-    }
-
-    log_timer = timer_read();
-}
-
-void render_keylogger_status(void) {
-    oled_write_P(PSTR("Keys:"), false);
-    oled_write(keylog_str, false);
-}
 
 void render_default_layer_state(void) {
     oled_write_P(PSTR("Lyout"), false);
@@ -125,7 +99,6 @@ void render_status_secondary(void) {
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
 
-    render_keylogger_status();
 }
 
 void oled_task_user(void) {
@@ -143,12 +116,4 @@ void oled_task_user(void) {
     } else {
         render_status_secondary();
     }
-}
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        oled_timer = timer_read32();
-        add_keylog(keycode);
-    }
-    return true;
 }

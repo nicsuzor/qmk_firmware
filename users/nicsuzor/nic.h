@@ -13,11 +13,6 @@
 #   include "rgb_matrix_user.h"
 #endif
 
-#if defined(KEYBOARD_lily58_rev1) & defined(PROTOCOL_LUFA)
-#    include "lufa.h"
-#    include "split_util.h"
-#endif
-
 void          eeconfig_init_keymap(void);
 
 /* Define layer names */
@@ -39,6 +34,8 @@ enum userspace_custom_keycodes {
     UC_TABL,            // ┬─┬ノ( º _ ºノ)
     UC_SHRG,            // ¯\_(ツ)_/¯
     UC_DISA,            // ಠ_ಠ
+    DBG_KEY,
+    DBG_MX,
     NEW_SAFE_RANGE  // use "NEWPLACEHOLDER for keymap specific codes
 };
 #define LOWER MO(_LOWER)

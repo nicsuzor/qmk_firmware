@@ -8,10 +8,15 @@ BOARD = QMK_PROTON_C
 
 BOOTMAGIC_ENABLE        = no
 MOUSEKEY_ENABLE         = no
-CONSOLE_ENABLE          = yes
-DEBUG_ENABLE			= yes
 COMMAND_ENABLE          = no
 AUTO_SHIFT_ENABLE = yes
+
+
+CONSOLE_ENABLE          = yes
+DEBUG_ENABLE			= yes
+VERBOSE 		 		= no
+DEBUG_MATRIX_SCAN_RATE  = no
+DEBUG_MATRIX		 	= no
 
 OLED_DRIVER_ENABLE= no     # OLED display
 AUDIO_ENABLE			= no
@@ -19,12 +24,15 @@ MIDI_ENABLE        = no
 
 RGBLIGHT_ENABLE         = no
 RGB_MATRIX_ENABLE       = no
-RGB_MATRIX_FRAMEBUFFER_EFFECTS = no
+RGB_MATRIX_FRAMEBUFFER_EFFECTS = yes
+RGB_MATRIX_SPLIT		= no
 SPLIT_KEYBOARD = yes
 
-RGB_MATRIX_DRIVER = WS2812
-WS2812_DRIVER = pwm
-#SPLIT_TRANSPORT = mirror    # for when Split Mirroring drops, it will maintain mirroring functionality
+DEBOUNCE_TYPE = sym_eager_pk
+
+#RGB_MATRIX_DRIVER = WS2812
+#WS2812_DRIVER = pwm
+#SPLIT_TRANSPORT = none    # for when Split Mirroring drops, it will maintain mirroring functionality
 
 API_SYSEX_ENABLE = no
 

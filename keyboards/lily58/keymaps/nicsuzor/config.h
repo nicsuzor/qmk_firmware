@@ -20,35 +20,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#define USE_MATRIX_I2C
-
 /* Select hand configuration */
 
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define USE_SERIAL_PD2
+//#undef USE_SERIAL_PD2
+//#define USE_MATRIX_I2C
 
-
-#undef RGBLED_NUM
+#ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 27
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#define RGBLIGHT_LIMIT_VAL 120
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
-
-#define SPLIT_TRANSPORT_MIRROR
-#define RGB_MATRIX_SPLIT { 13, 13 }
+#endif
 
 #define FORCE_NKRO
 
-// Underglow
-/*
-#undef RGBLED_NUM
-#define RGBLED_NUM 14    // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_SLEEP
-*/
+/* key matrix size */
+// Rows are doubled-up
+#undef MATRIX_ROWS
+#undef MATRIX_COLS
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 6
+
+#define MATRIX_ROW_PINS { B4, B3, B2, B1, B0 }
+
+// wiring of each half
+#define MATRIX_COL_PINS { A0, B8, B13, B14, B15, B9 }
+
+#undef SOFT_SERIAL_PIN
+#define SOFT_SERIAL_PIN A10
+#undef RGB_DI_PIN
+#define RGB_DI_PIN A9
