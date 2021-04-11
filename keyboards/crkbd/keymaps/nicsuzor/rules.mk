@@ -17,6 +17,7 @@ CONSOLE_ENABLE          = yes
 DEBUG_ENABLE			= yes
 VERBOSE 		 		= yes
 DEBUG_MATRIX_SCAN_RATE  = yes
+DEBUG_MATRIX_SCAN_RATE_ENABLE = yes
 DEBUG_MATRIX		 	= yes
 
 OLED_DRIVER_ENABLE= no     # OLED display
