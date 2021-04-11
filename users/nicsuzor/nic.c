@@ -14,9 +14,10 @@ __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 
 void keyboard_pre_init_user(void) {
     userspace_config.raw = eeconfig_read_user();
-#if defined(KEYBOARD_crkbd_rev1) || defined(KEYBOARD_crkbd_rev1_common)
+#if defined(KEYBOARD_crkbd_rev1) || defined(KEYBOARD_crkbd_rev1_common) || defined(STM32F303xC)
     //setPinInputHigh(B6);
     //setPinInputHigh(B7);
+    //setPinInputHigh(A10);
 #elif defined(USE_INTERNAL_RESISTORS)
     // In case of lag due to no resistors:
     //setPinInputHigh(D0);
@@ -45,14 +46,17 @@ __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 void keyboard_post_init_user(void) {
     keyboard_post_init_keymap();
 
+    debug_enable=true;
 #if defined(DEBUG_ENABLE) || defined(DEBUG)
     debug_enable=true;
-  debug_matrix=false;
-  debug_keyboard=false;
-  //debug_mouse=true;
+  debug_matrix=true;
+  debug_keyboard=true;
+  //debug_mouse=true;X
 
 #endif
 
+    uprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
+    uprintf(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
 }
 
 __attribute__((weak)) void shutdown_keymap(void) {}
@@ -143,7 +147,7 @@ void eeconfig_init_user(void) {
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (debug_matrix) {
+    if (debug_enable) {
             dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
         }
 
