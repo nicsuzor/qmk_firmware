@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#undef USE_SERIAL
 //#define USE_MATRIX_I2C
 
-#define SELECT_SOFT_SERIAL_SPEED 4
+#define SELECT_SOFT_SERIAL_SPEED 0
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN A10
 #define SERIAL_USE_MULTI_TRANSACTION
