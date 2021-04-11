@@ -63,7 +63,7 @@
 #endif  // RGB_MATRIX_ENABLE
 
 #undef DEBOUNCE
-#define DEBOUNCE 5
+#define DEBOUNCE 50
 
 #if !defined(ONESHOT_TAP_TOGGLE)
 #    define ONESHOT_TAP_TOGGLE 2
@@ -128,8 +128,3 @@
 #    undef LOCKING_RESYNC_ENABLE
 #endif
 
-#if defined(OLED_FONT_H)
-#    undef OLED_FONT_H
-#endif
-
-#define OLED_FONT_H "users/nic/glcdfont.c"

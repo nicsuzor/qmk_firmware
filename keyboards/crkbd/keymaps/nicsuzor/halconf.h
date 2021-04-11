@@ -25,7 +25,8 @@
 
 //#define HAL_USE_PWM TRUE
 
-//#define HAL_USE_SERIAL_USB TRUE
+#define HAL_USE_SERIAL_USB TRUE
+#define HAL_USE_SERIAL TRUE
 
 #define HAL_USE_SPI TRUE
 

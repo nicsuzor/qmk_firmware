@@ -2,7 +2,7 @@ SRC += nic.c
 
 # Common flags
 SPACE_CADET_ENABLE      = no
-LTO_ENABLE              = yes
+LTO_ENABLE              = no
 EXTRAKEY_ENABLE         = yes
 UNICODE_ENABLE          = yes
 NKRO_ENABLE             = yes

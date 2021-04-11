@@ -32,10 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#undef USE_SERIAL
 //#define USE_MATRIX_I2C
 
-#define SELECT_SOFT_SERIAL_SPEED 0
+#define SELECT_SOFT_SERIAL_SPEED 4
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN A10
-
+#define SERIAL_USE_MULTI_TRANSACTION
 
 #define SPLIT_USB_DETECT
 
@@ -67,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_CHANNEL 2
 
 #undef DRIVER_LED_TOTAL
-#define DRIVER_LED_TOTAL 54
+//#define DRIVER_LED_TOTAL 54
 
 //#define RGBLED_NUM 58
 //#define RGBLIGHT_SPLIT
@@ -77,3 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SPLIT_TRANSPORT_MIRROR
 #undef SPLIT_TRANSPORT_MIRROR
 #endif
+//#define SPLIT_TRANSPORT_MIRROR
+
+//#define SSD1306OLED
+//#define USE_I2C
