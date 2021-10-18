@@ -1,6 +1,6 @@
 #include "nic.h"
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
 #include "rgb_matrix_user.h"
 #include "rgb_matrix.h"
 #endif
