@@ -1,12 +1,12 @@
 #pragma once
 
 /* Set Polling rate to 1000Hz */
-//#define USB_POLLING_INTERVAL_MS 1
+#define USB_POLLING_INTERVAL_MS 1
 
 #if defined(RGB_MATRIX_ENABLE)
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
+//#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 #   define RGB_MATRIX_LED_PROCESS_LIMIT 10 //(DRIVER_LED_TOTAL + 4) / 2 //5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
