@@ -63,7 +63,7 @@
 #endif  // RGB_MATRIX_ENABLE
 
 #undef DEBOUNCE
-#define DEBOUNCE 50
+#define DEBOUNCE 5
 
 #if !defined(ONESHOT_TAP_TOGGLE)
 #    define ONESHOT_TAP_TOGGLE 2
@@ -77,7 +77,10 @@
 #    define QMK_KEYS_PER_SCAN 4
 #endif  // !QMK_KEYS_PER_SCAN
 
-#define IGNORE_MOD_TAP_INTERRUPT
+#if defined(IGNORE_MOD_TAP_INTERRUPT)
+#undef IGNORE_MOD_TAP_INTERRUPT
+#endif
+
 #undef PERMISSIVE_HOLD
 #if defined(TAPPING_FORCE_HOLD)
 #undef TAPPING_FORCE_HOLD
@@ -108,10 +111,9 @@
 
 #define FORCE_NKRO
 
+
 #if defined(AUTO_SHIFT_ENABLE)
-#define NO_AUTO_SHIFT_ALPHA
-#define AUTO_SHIFT_NO_AUTO_REPEAT
-#define AUTO_SHIFT_MODIFIERS
+#    undef AUTO_SHIFT_ENABLE
 #endif
 
 #define TAP_CODE_DELAY 5
