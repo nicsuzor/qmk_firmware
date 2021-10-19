@@ -2,6 +2,16 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
+# MCU name
+MCU = STM32F303
+
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
+
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = no        # Audio control and System control
@@ -23,13 +33,14 @@ TAP_DANCE_ENABLE = no
 LTO_ENABLE = no
 
 
+CUSTOM_MATRIX = yes
+
 SRC += muse.c
 
-AUTO_SHIFT_ENABLE = yes
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 
-ifeq ($(strip $(KEYBOARD)), planck/rev6)
-RGB_MATRIX_ENABLE = yes #WS2812
-endif
+#ifeq ($(strip $(KEYBOARD)), planck/rev6)
+#RGB_MATRIX_ENABLE = yes #WS2812
+#endif
