@@ -33,7 +33,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 #define ___________________BLANK___________________         _______, _______, _______, _______, _______, _______
 
-#define _______________GRID_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, KC_NO, KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
+#define _______________GRID_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, DEBUG, KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 #define _____________DOUBLE_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, KC_NO,  KC_LALT,LOWER,     KC_SPC,     RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 
 #define ________________NAV_LEFT_1_________________         EPRM, KC_HOME, KC_UP, KC_END, KC_PGUP,  KC_BSPC //????
@@ -51,7 +51,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________LOWER_L4__________________         _________________FUNC_2____________________
 
 #define _________________LOWER_R1__________________         KC_CIRC, KC_AMPR, KC_ASTR, KC_AT, KC_HASH, KC_DEL
-#define _________________LOWER_R2__________________         KC_UNDS, KC_LBRC, KC_RBRC, KC_PIPE, KC_GRV, KC_TRNS
+#define _________________LOWER_R2__________________         KC_UNDS, KC_LBRC, KC_RBRC, KC_PIPE, KC_GRV, KC_DEL
 #define _________________LOWER_R3__________________         KC_MINS, KC_LPRN, KC_RPRN, KC_SCLN, KC_EQL, KC_TRNS
 #define _________________LOWER_R4__________________         KC_PPLS, KC_LCBR, KC_RCBR, KC_COLN, KC_BSLS, KC_TRNS
 
