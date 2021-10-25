@@ -32,7 +32,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#undef USE_SERIAL
 //#define USE_MATRIX_I2C
 
-#define SELECT_SOFT_SERIAL_SPEED 0
+#ifdef SPLIT_TRANSPORT_MIRROR
+#undef SPLIT_TRANSPORT_MIRROR
+#endif
+
+#define SELECT_SOFT_SERIAL_SPEED 1
+#define SPLIT_MAX_CONNECTION_ERRORS 10
+#define SPLIT_TRANSPORT_MIRROR
+
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
+
+
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN A10
 #define SERIAL_USE_MULTI_TRANSACTION
@@ -74,10 +85,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGB_MATRIX_SPLIT
 //#define RGB_MATRIX_SPLIT { 27, 27 }
 
-#ifdef SPLIT_TRANSPORT_MIRROR
-#undef SPLIT_TRANSPORT_MIRROR
-#endif
-//#define SPLIT_TRANSPORT_MIRROR
 
 //#define SSD1306OLED
 //#define USE_I2C
