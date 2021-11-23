@@ -36,8 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef SPLIT_TRANSPORT_MIRROR
 #endif
 
-#define SELECT_SOFT_SERIAL_SPEED 2
-#define SPLIT_MAX_CONNECTION_ERRORS 10
+#define SELECT_SOFT_SERIAL_SPEED 3
+#define SPLIT_MAX_CONNECTION_ERRORS 50
 #define SPLIT_TRANSPORT_MIRROR
 
 #define SPLIT_LAYER_STATE_ENABLE
@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN A10
-#define SERIAL_USE_MULTI_TRANSACTION
+//#define SERIAL_USE_MULTI_TRANSACTION
 
 #define SPLIT_USB_DETECT
 
