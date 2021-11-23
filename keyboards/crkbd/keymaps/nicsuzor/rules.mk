@@ -10,7 +10,7 @@ BOARD = QMK_PROTON_C
 BOOTMAGIC_ENABLE        = no
 MOUSEKEY_ENABLE         = no
 COMMAND_ENABLE          = no
-AUTO_SHIFT_ENABLE = yes
+AUTO_SHIFT_ENABLE = no
 
 
 CONSOLE_ENABLE          = yes
@@ -26,7 +26,7 @@ MIDI_ENABLE        = no
 
 RGBLIGHT_ENABLE         = no
 RGB_MATRIX_ENABLE       = no
-RGB_MATRIX_FRAMEBUFFER_EFFECTS = yes
+RGB_MATRIX_FRAMEBUFFER_EFFECTS = no
 RGB_MATRIX_SPLIT		= no
 
 SPLIT_KEYBOARD = yes
@@ -37,7 +37,7 @@ DEBOUNCE_TYPE = sym_eager_pk
 #WS2812_DRIVER = pwm
 #SPLIT_TRANSPORT = none    # for when Split Mirroring drops, it will maintain mirroring functionality
 
-SERIAL_DRIVER = bitbang
+#SERIAL_DRIVER = bitbang
 
 # API_SYSEX_ENABLE = no
 
