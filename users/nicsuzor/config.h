@@ -63,7 +63,7 @@
 #endif  // RGB_MATRIX_ENABLE
 
 #undef DEBOUNCE
-#define DEBOUNCE 5
+#define DEBOUNCE 8
 
 #if !defined(ONESHOT_TAP_TOGGLE)
 #    define ONESHOT_TAP_TOGGLE 2
