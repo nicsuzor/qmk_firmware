@@ -27,18 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define AUDIO_CLICKY
 #endif
 
-//#define USE_I2C
-//#define USE_SERIAL_PD2
-//#undef USE_SERIAL
-//#define USE_MATRIX_I2C
 
-#ifdef SPLIT_TRANSPORT_MIRROR
-#undef SPLIT_TRANSPORT_MIRROR
+#ifndef SPLIT_TRANSPORT_MIRROR
+#define SPLIT_TRANSPORT_MIRROR
 #endif
 
-#define SELECT_SOFT_SERIAL_SPEED 3
-#define SPLIT_MAX_CONNECTION_ERRORS 0
-#define SPLIT_TRANSPORT_MIRROR
+#define SELECT_SOFT_SERIAL_SPEED 0
+#define SPLIT_MAX_CONNECTION_ERRORS 50
 
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
@@ -46,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN A10
-//#define SERIAL_USE_MULTI_TRANSACTION
+#define SERIAL_USE_MULTI_TRANSACTION
 
 #define SPLIT_USB_DETECT
 
@@ -71,11 +66,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGB_DI_PIN
 //#define RGB_DI_PIN A9
 
-#define WS2812_PWM_DRIVER PWMD2
-#define WS2812_PWM_CHANNEL 3
-#define WS2812_PWM_PAL_MODE 10
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
-#define WS2812_DMA_CHANNEL 2
 
 #undef DRIVER_LED_TOTAL
 //#define DRIVER_LED_TOTAL 54
