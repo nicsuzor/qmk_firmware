@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef SPLIT_TRANSPORT_MIRROR
 #endif
 
-#define SELECT_SOFT_SERIAL_SPEED 1
+#define SELECT_SOFT_SERIAL_SPEED 2
 #define SPLIT_MAX_CONNECTION_ERRORS 10
 #define SPLIT_TRANSPORT_MIRROR
 
