@@ -41,14 +41,3 @@ ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 else
 
 endif
-
-ifeq ($(strip $(MAKE_BOOTLOADER)), yes)
-    OPT_DEFS += -DMAKE_BOOTLOADER
-endif
-
-# At least until build.mk or the like drops, this is here to prevent
-# VUSB boards from enabling NKRO, as they do not support it. Ideally
-# this should be handled per keyboard, but until that happens ...
-ifeq ($(strip $(PROTOCOL)), VUSB)
-    NKRO_ENABLE       = no
-endif

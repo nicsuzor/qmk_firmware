@@ -5,6 +5,9 @@
 MCU = STM32F303
 BOARD = QMK_PROTON_C
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 #CONVERT_TO_PROTON_C = yes
 #BACKLIGHT_ENABLE=yes BACKLIGHT_DRIVER=timer
 BOOTMAGIC_ENABLE        = no
