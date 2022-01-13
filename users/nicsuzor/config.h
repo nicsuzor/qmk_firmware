@@ -63,7 +63,7 @@
 #endif  // RGB_MATRIX_ENABLE
 
 #undef DEBOUNCE
-#define DEBOUNCE 8
+#define DEBOUNCE 10
 
 #if !defined(ONESHOT_TAP_TOGGLE)
 #    define ONESHOT_TAP_TOGGLE 2
@@ -94,7 +94,7 @@
 #    undef TAPPING_TERM
 #endif  // TAPPING_TERM
 
-#define TAPPING_TERM 170
+#define TAPPING_TERM 150
 /*
 // Keyboard specific customisations
 #if defined(KEYBOARD_lily58_rev1)
