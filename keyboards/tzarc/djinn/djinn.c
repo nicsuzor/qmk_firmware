@@ -39,7 +39,6 @@ const char* usbpd_str(usbpd_allowance_t allowance) {
 }
 
 void usbpd_update(void) {
-    static uint32_t last_read = 0;
 
 }
 
