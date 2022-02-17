@@ -29,7 +29,7 @@
 #define SYNC_TIMER_OFFSET 2
 
 #ifndef FORCED_SYNC_THROTTLE_MS
-#    define FORCED_SYNC_THROTTLE_MS 100
+#    define FORCED_SYNC_THROTTLE_MS 1000
 #endif  // FORCED_SYNC_THROTTLE_MS
 
 #define sizeof_member(type, member) sizeof(((type *)NULL)->member)
