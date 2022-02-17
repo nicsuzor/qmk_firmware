@@ -22,9 +22,6 @@
 #include "serial.h"
 #include "split_util.h"
 
-#include "qp_ili9341.h"
-
-painter_device_t lcd;
 
 kb_runtime_config kb_state;
 uint32_t          last_slave_sync_time = 0;
@@ -77,8 +74,6 @@ void kb_state_update(void) {
         // Modify allowed current limits
         usbpd_update();
 
-        // Turn off the LCD if there's been no matrix activity
-        kb_state.lcd_power = (last_input_activity_elapsed() < LCD_ACTIVITY_TIMEOUT) ? 1 : 0;
     }
 }
 
@@ -166,73 +161,9 @@ void housekeeping_task_kb(void) {
         }
     }
 
-    // Turn on/off the LCD
-    static bool lcd_on = false;
-    if (lcd_on != (bool)kb_state.lcd_power) {
-        lcd_on = (bool)kb_state.lcd_power;
-        qp_power(lcd, lcd_on);
-    }
 
-    // Enable/disable RGB
-    if (lcd_on) {
-        // Enable EEPROM so that we've got some colour data already being transmitted, by the time we turn on the RGB_PWR line
-        if (rgblight_is_enabled() != lcd_on) {
-            rgblight_enable_noeeprom();
-        }
-        // Turn on RGB_PWR
-        writePinHigh(RGB_POWER_ENABLE_PIN);
-    } else {
-        // Turn off RGB_PWR
-        writePinLow(RGB_POWER_ENABLE_PIN);
-        // Disable the PWM output for the RGB
-        if (rgblight_is_enabled() != lcd_on) {
-            rgblight_disable_noeeprom();
-        }
-    }
 
-    // Match the backlight to the LCD state
-    if (is_keyboard_master() && is_backlight_enabled() != lcd_on) {
-        if (lcd_on)
-            backlight_enable();
-        else
-            backlight_disable();
-    }
 
-    // Draw the UI
-    if (kb_state.lcd_power) {
-        draw_ui_user();
-    }
-
-    // Go into low-scan interrupt-based mode if we haven't had any matrix activity in the last 5 seconds
-    if (last_input_activity_elapsed() > 5000) {
-        // ROW2COL
-        const pin_t row_pins[] = MATRIX_ROW_PINS;
-        const pin_t col_pins[] = MATRIX_COL_PINS;
-
-        // Set up row/col pins and attach callback
-        for (int i = 0; i < sizeof(col_pins) / sizeof(pin_t); ++i) {
-            setPinOutput(col_pins[i]);
-            writePinLow(col_pins[i]);
-        }
-        for (int i = 0; i < sizeof(row_pins) / sizeof(pin_t); ++i) {
-            setPinInputHigh(row_pins[i]);
-            palEnableLineEvent(row_pins[i], PAL_EVENT_MODE_BOTH_EDGES);
-        }
-
-        // Wait for an interrupt
-        __WFI();
-
-        // Now that the interrupt has woken us up, reset all the row/col pins back to defaults
-        for (int i = 0; i < sizeof(row_pins) / sizeof(pin_t); ++i) {
-            palDisableLineEvent(row_pins[i]);
-            writePinHigh(row_pins[i]);
-            setPinInputHigh(row_pins[i]);
-        }
-        for (int i = 0; i < sizeof(col_pins) / sizeof(pin_t); ++i) {
-            writePinHigh(col_pins[i]);
-            setPinInputHigh(col_pins[i]);
-        }
-    }
 }
 
 //----------------------------------------------------------
@@ -250,35 +181,6 @@ void keyboard_post_init_kb(void) {
     writePinLow(RGB_CURR_1500mA_OK_PIN);
     setPinOutput(RGB_CURR_3000mA_OK_PIN);
     writePinLow(RGB_CURR_3000mA_OK_PIN);
-
-    // Turn on the RGB
-    setPinOutput(RGB_POWER_ENABLE_PIN);
-    writePinHigh(RGB_POWER_ENABLE_PIN);
-
-#ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
-    setPinOutput(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
-    writePinHigh(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
-#endif  // EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
-
-    // Turn on the LCD
-    setPinOutput(LCD_POWER_ENABLE_PIN);
-    writePinHigh(LCD_POWER_ENABLE_PIN);
-
-    // Let the LCD get some power...
-    wait_ms(50);
-
-    // Initialise the LCD
-    lcd = qp_ili9341_make_spi_device(320, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 0);
-    qp_init(lcd, QP_ROTATION_0);
-
-    // Turn on the LCD and clear the display
-    kb_state.lcd_power = 1;
-    qp_power(lcd, true);
-    qp_rect(lcd, 0, 0, 239, 319, HSV_BLACK, true);
-
-    // Turn on the LCD backlight
-    backlight_enable();
-    backlight_level(BACKLIGHT_LEVELS);
 
     // Allow for user post-init
     keyboard_post_init_user();

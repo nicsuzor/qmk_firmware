@@ -294,7 +294,7 @@ static inline int initiate_transaction(uint8_t sstd_index) {
      *   - without the read, write only transactions *always* succeed, even during the boot process where the slave is not ready.
      */
     if (!receive(&sstd_index_shake, sizeof(sstd_index_shake)) || (sstd_index_shake != (sstd_index ^ HANDSHAKE_MAGIC))) {
-        dprintln("USART: Handshake failed.");
+        dprintf("USART: Handshake failed. Received: %#x %#x\n", sstd_index_shake, sstd_index);
         return TRANSACTION_NO_RESPONSE;
     }
 

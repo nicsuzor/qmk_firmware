@@ -53,6 +53,7 @@
 #endif  // SPLIT_CONNECTION_CHECK_TIMEOUT
 
 static uint8_t connection_errors = 0;
+static uint8_t working_connections = 0;
 
 volatile bool isLeftHand = true;
 
@@ -181,12 +182,17 @@ bool transport_master_if_connected(matrix_row_t master_matrix[], matrix_row_t sl
         bool connected = is_transport_connected();
         if (!connected) {
             connection_check_timer = timer_read();
-            dprintln("Target disconnected, throttling connection attempts");
+            dprintf("Target disconnected, throttling connection attempts. %u good cycles before.\n", working_connections);
+            working_connections = 0;
         }
         return connected;
     } else if (is_disconnected) {
         dprintln("Target connected");
 #    endif  // SPLIT_CONNECTION_CHECK_TIMEOUT > 0
+    } else {
+        if (working_connections < UINT8_MAX) {
+            working_connections++;
+        }
     }
 
     connection_errors = 0;

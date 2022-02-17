@@ -17,7 +17,7 @@
 #pragma once
 
 #include <quantum.h>
-#include <qp.h>
+// #include <qp.h>
 
 //----------------------------------------------------------
 // Layout
@@ -54,8 +54,6 @@
 
 //----------------------------------------------------------
 // Runtime data sync -- keyboard
-
-extern painter_device_t lcd;
 
 #pragma pack(push)
 #pragma pack(1)

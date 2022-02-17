@@ -19,6 +19,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <backlight.h>
+#include <qp.h>
 #include <printf.h>
 #include <transactions.h>
 #include <split_util.h>
@@ -38,10 +39,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,                          KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
         KC_LCTL,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME,                          KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_END,                           KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-                                   KC_LGUI, KC_LWR,  EEP_RST,  DEBUG,                            DEBUG,   KC_SPC,  KC_RSE,  KC_LALT,
-                                                                      EEP_RST,         EEP_RST,
-                                                     DEBUG,                                              DEBUG,
-                                            EEP_RST, _______, EEP_RST,                         EEP_RST, _______, EEP_RST,
+                                   KC_LGUI, KC_LWR,  KC_SPC,  KC_LWR,                            KC_RSE,   KC_SPC,  KC_RSE,  KC_LALT,
+                                                                      RGB_RMOD,         RGB_MOD,
+                                                     KC_UP,                                              KC_UP,
+                                            EEP_RST, _______, RESET,                         EEP_RST, _______, RESET,
                                                      DEBUG,                                            DEBUG
     ),
     [_LOWER] = LAYOUT_all(
@@ -79,11 +80,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 // clang-format on
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // Default handler for lower/raise/adjust
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -190,19 +186,21 @@ void rpc_user_sync_callback(uint8_t initiator2target_buffer_size, const void *in
     }
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_keymap(void) {
     // Register keyboard state sync split transaction
     transaction_register_rpc(USER_DATA_SYNC, rpc_user_sync_callback);
 
     // Reset the initial shared data value between master and slave
     memset(&user_state, 0, sizeof(user_state));
 
+    void keyboard_post_init_display(void);
+    keyboard_post_init_display();
 }
 
 void user_state_update(void) {
     if (is_keyboard_master()) {
         // Keep the scan rate in sync
-        user_state.scan_rate = get_matrix_scan_rate();
+        //user_state.scan_rate = get_matrix_scan_rate();
     }
 }
 
@@ -245,4 +243,5 @@ void housekeeping_task_user(void) {
 
 //----------------------------------------------------------
 // Display
+#include "theme_djinn.inl.c"
 //#include "theme_hf.inl.c"

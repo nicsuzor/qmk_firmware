@@ -5,7 +5,7 @@
 MCU = STM32F303
 BOARD = QMK_PROTON_C
 
- Bootloader selection
+# Bootloader selection
 BOOTLOADER = stm32-dfu
 
 #CONVERT_TO_PROTON_C = yes

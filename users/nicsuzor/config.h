@@ -95,6 +95,7 @@
 #endif  // TAPPING_TERM
 
 #define TAPPING_TERM 150
+
 /*
 // Keyboard specific customisations
 #if defined(KEYBOARD_lily58_rev1)
@@ -109,7 +110,7 @@
 #endif*/
 
 
-#define FORCE_NKRO
+// #define FORCE_NKRO
 
 
 #if defined(AUTO_SHIFT_ENABLE)

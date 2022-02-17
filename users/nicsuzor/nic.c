@@ -47,13 +47,13 @@ void keyboard_post_init_user(void) {
     keyboard_post_init_keymap();
 
     debug_enable=true;
-#if defined(DEBUG_ENABLE) || defined(DEBUG)
     debug_enable=true;
-  debug_matrix=true;
+  debug_matrix=false;
   debug_keyboard=true;
   //debug_mouse=true;X
 
-#endif
+  #if defined(DEBUG_ENABLE) || defined(DEBUG)
+    #endif
 
     uprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
     uprintf(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
