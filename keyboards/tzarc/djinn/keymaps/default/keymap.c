@@ -100,31 +100,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
     if (is_shift) {
         if (index == 0) { /* First encoder */
-            if (clockwise) {
-                rgblight_increase_hue();
-            } else {
-                rgblight_decrease_hue();
-            }
         } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                rgblight_decrease_sat();
-            } else {
-                rgblight_increase_sat();
-            }
         }
     } else if (is_ctrl) {
         if (index == 0) { /* First encoder */
-            if (clockwise) {
-                rgblight_increase_val();
-            } else {
-                rgblight_decrease_val();
-            }
         } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                rgblight_increase_speed();
-            } else {
-                rgblight_decrease_speed();
-            }
         }
     } else {
         if (index == 0) { /* First encoder */
