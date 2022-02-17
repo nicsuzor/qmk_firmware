@@ -32,14 +32,6 @@
 #    define SERIAL_USART_FULL_DUPLEX
 #endif  // defined(SERIAL_DRIVER_USART)
 
-// RGB configuration
-#define RGB_POWER_ENABLE_PIN B0
-#define RGB_CURR_1500mA_OK_PIN C5
-#define RGB_CURR_3000mA_OK_PIN C4
-#define RGBLED_NUM 86
-#define RGBLED_SPLIT \
-    { 43, 43 }
-
 // EEPROM configuration
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN B5
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 8  // (160MHz/8) => 20MHz
@@ -55,6 +47,3 @@
 // Fault indicators
 #define BOARD_POWER_FAULT_PIN C9
 #define RGB_POWER_FAULT_PIN C4
-
-// Limit the backlight brightness
-#define BACKLIGHT_LIMIT_VAL 144

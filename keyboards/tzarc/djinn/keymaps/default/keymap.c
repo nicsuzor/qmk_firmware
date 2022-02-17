@@ -18,7 +18,6 @@
 #include <hal.h>
 #include <string.h>
 #include <ctype.h>
-#include <backlight.h>
 #include <printf.h>
 #include <transactions.h>
 #include <split_util.h>
@@ -41,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_LGUI, KC_LWR,  EEP_RST,  DEBUG,                            DEBUG,   KC_SPC,  KC_RSE,  KC_LALT,
                                                                       EEP_RST,         EEP_RST,
                                                      DEBUG,                                              DEBUG,
-                                            EEP_RST, _______, EEP_RST,                         EEP_RST, _______, EEP_RST,
+                                            EEP_RST, _______, RESET,                         EEP_RST, _______, RESET,
                                                      DEBUG,                                            DEBUG
     ),
     [_LOWER] = LAYOUT_all(
