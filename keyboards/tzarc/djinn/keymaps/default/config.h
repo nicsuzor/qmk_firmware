@@ -24,3 +24,13 @@
 
 // Allow for an extra sync command over the split
 #define SPLIT_TRANSACTION_IDS_USER USER_DATA_SYNC
+
+
+// Audio configuration
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
+#define A5_AUDIO
+#ifndef STARTUP_SONG
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif  // STARTUP_SONG
