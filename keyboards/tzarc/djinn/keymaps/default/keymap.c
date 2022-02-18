@@ -235,6 +235,15 @@ void housekeeping_task_user(void) {
     user_state_sync();
 }
 
+
+#ifdef AUDIO_ENABLE
+if (!is_keyboard_master()) {
+    float master_song[][2] = SONG(CAPS_LOCK_ON_SOUND);
+} else {
+    float receiver_song[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+}
+#endif
+
 //----------------------------------------------------------
 // Display
 //#include "theme_hf.inl.c"
@@ -244,10 +253,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef AUDIO_ENABLE
     if (!is_keyboard_master()) {
-        float my_song[][2] = SONG(CAPS_LOCK_ON_SOUND);
+        PLAY_SONG(master_song);
     } else {
-        float my_song[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+        PLAY_SONG(receiver_song);
     }
-    PLAY_SONG(my_song);
 #endif
 }
