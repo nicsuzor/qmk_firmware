@@ -182,7 +182,6 @@ void keyboard_post_init_user(void) {
     //debug_mouse=true;X
 
     uprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
-    uprintf(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
 
     // Register keyboard state sync split transaction
     transaction_register_rpc(USER_DATA_SYNC, rpc_user_sync_callback);
