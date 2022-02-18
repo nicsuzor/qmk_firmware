@@ -9,6 +9,11 @@ DEBUG_ENABLE = yes
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 UNICODE_ENABLE = no         # Unicode
+AUDIO_ENABLE = yes           # Audio output
+
+AUDIO_DRIVER = pwm_software
+AUDIO_PIN = A5
+AUDIO_PIN_ALT = A4
 
 SPLIT_KEYBOARD = yes
 

@@ -170,6 +170,20 @@ void rpc_user_sync_callback(uint8_t initiator2target_buffer_size, const void *in
 }
 
 void keyboard_post_init_user(void) {
+#ifdef AUDIO_ENABLE
+    float my_song[][2] = SONG(NUM_LOCK_ON_SOUND);
+    PLAY_SONG(my_song);
+#endif
+
+    debug_enable=true;
+    debug_enable=true;
+    debug_matrix=true;
+    debug_keyboard=true;
+    //debug_mouse=true;X
+
+    uprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
+    uprintf(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+
     // Register keyboard state sync split transaction
     transaction_register_rpc(USER_DATA_SYNC, rpc_user_sync_callback);
 
@@ -225,3 +239,16 @@ void housekeeping_task_user(void) {
 //----------------------------------------------------------
 // Display
 //#include "theme_hf.inl.c"
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+
+#ifdef AUDIO_ENABLE
+    if (!is_keyboard_master()) {
+        float my_song[][2] = SONG(CAPS_LOCK_ON_SOUND);
+    } else {
+        float my_song[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+    }
+    PLAY_SONG(my_song);
+#endif
+}

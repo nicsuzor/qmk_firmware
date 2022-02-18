@@ -19,18 +19,16 @@
 // Split configuration
 #define SPLIT_HAND_PIN B9
 
-#if defined(SERIAL_DRIVER_USART)
-#    define SERIAL_USART_DRIVER SD3
+#define SERIAL_USART_DRIVER SD3
 #    define SERIAL_USART_PIN_SWAP
 #    define SERIAL_USART_TX_PIN B10
 #    define SERIAL_USART_TX_PAL_MODE 7
 #    define SERIAL_USART_RX_PIN B11
 #    define SERIAL_USART_RX_PAL_MODE 7
-#    ifndef SERIAL_USART_SPEED
-#        define SERIAL_USART_SPEED 1200000
-#    endif  // SERIAL_USART_SPEED
+
+#    define SERIAL_USART_SPEED 38400
+
 #    define SERIAL_USART_FULL_DUPLEX
-#endif  // defined(SERIAL_DRIVER_USART)
 
 // EEPROM configuration
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN B5
@@ -47,3 +45,7 @@
 // Fault indicators
 #define BOARD_POWER_FAULT_PIN C9
 #define RGB_POWER_FAULT_PIN C4
+
+#ifdef AUDIO_ENABLE
+#define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
