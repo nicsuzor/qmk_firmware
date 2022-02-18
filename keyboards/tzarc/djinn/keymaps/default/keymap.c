@@ -79,6 +79,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+
+#ifdef AUDIO_ENABLE
+float master_song[][2] = SONG(CAPS_LOCK_ON_SOUND);
+float receiver_song[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+#endif
+
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Default handler for lower/raise/adjust
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
@@ -156,6 +163,7 @@ const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 1, 0 };
 typedef struct user_runtime_config {
     uint32_t scan_rate;
 } user_runtime_config;
+
 
 #pragma pack(pop)
 
@@ -235,14 +243,6 @@ void housekeeping_task_user(void) {
     user_state_sync();
 }
 
-
-#ifdef AUDIO_ENABLE
-if (!is_keyboard_master()) {
-    float master_song[][2] = SONG(CAPS_LOCK_ON_SOUND);
-} else {
-    float receiver_song[][2] = SONG(CAPS_LOCK_OFF_SOUND);
-}
-#endif
 
 //----------------------------------------------------------
 // Display
