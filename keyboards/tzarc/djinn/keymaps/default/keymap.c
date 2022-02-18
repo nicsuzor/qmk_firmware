@@ -258,4 +258,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         PLAY_SONG(receiver_song);
     }
 #endif
+
+    return true;
 }
