@@ -21,7 +21,7 @@
 #include "djinn.h"
 #include "serial.h"
 #include "split_util.h"
-
+#include "ch.h"
 
 kb_runtime_config kb_state;
 uint32_t          last_slave_sync_time = 0;

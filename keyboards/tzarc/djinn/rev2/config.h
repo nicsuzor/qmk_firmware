@@ -33,11 +33,3 @@
 // Fault indicators
 #define BOARD_POWER_FAULT_PIN C9
 #define RGB_POWER_FAULT_PIN C4
-
-#ifdef AUDIO_ENABLE
-
-#define AUDIO_PIN_ALT A5
-#define AUDIO_PIN_ALT_AS_NEGATIVE
-#define STARTUP_SONG SONG(STARTUP_SOUND)
-
-#endif

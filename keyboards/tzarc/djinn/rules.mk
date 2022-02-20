@@ -1,5 +1,8 @@
 MCU = STM32G474
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+PROTOCOL_CHIBIOS = YES
 BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
