@@ -30,11 +30,11 @@
 
 // Used for backlight
 #undef STM32_PWM_USE_TIM17
-#define STM32_PWM_USE_TIM17 TRUE
+//#define STM32_PWM_USE_TIM17 TRUE
 
 // Used for SK6812 chain
 #undef STM32_PWM_USE_TIM20
-#define STM32_PWM_USE_TIM20 TRUE
+//#define STM32_PWM_USE_TIM20 TRUE
 
 // Used for split comms
 #if defined(SERIAL_DRIVER_USART) || defined(SERIAL_DRIVER_USART_DUPLEX_ALT)

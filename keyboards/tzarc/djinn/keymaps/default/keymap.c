@@ -18,8 +18,6 @@
 #include <hal.h>
 #include <string.h>
 #include <ctype.h>
-#include <backlight.h>
-#include <qp.h>
 #include <printf.h>
 #include <transactions.h>
 #include <split_util.h>
@@ -39,11 +37,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,                          KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
         KC_LCTL,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME,                          KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_END,                           KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-                                   KC_LGUI, KC_LWR,  KC_SPC,  KC_NO,                            KC_NO,   KC_SPC,  KC_RSE,  KC_LALT,
-                                                                      RGB_RMOD,         RGB_MOD,
-                                                     KC_UP,                                              KC_UP,
-                                            KC_LEFT, _______, KC_RIGHT,                         KC_LEFT, _______, KC_RIGHT,
-                                                     KC_DOWN,                                            KC_DOWN
+                                   KC_LGUI, KC_LWR,  KC_SPC,  RESET,                            RESET,   KC_SPC,  KC_RSE,  KC_LALT,
+                                                                      RESET,         RESET,
+                                                     RESET,                                              RESET,
+                                            EEP_RST, _______, EEP_RST,                         EEP_RST, _______, EEP_RST,
+                                                     EEP_RST,                                            EEP_RST
     ),
     [_LOWER] = LAYOUT_all(
         KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                         _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
@@ -95,52 +93,17 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    uint8_t temp_mod = get_mods();
-    uint8_t temp_osm = get_oneshot_mods();
-    bool    is_ctrl  = (temp_mod | temp_osm) & MOD_MASK_CTRL;
-    bool    is_shift = (temp_mod | temp_osm) & MOD_MASK_SHIFT;
-
-    if (is_shift) {
-        if (index == 0) { /* First encoder */
-            if (clockwise) {
-                rgblight_increase_hue();
-            } else {
-                rgblight_decrease_hue();
-            }
-        } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                rgblight_decrease_sat();
-            } else {
-                rgblight_increase_sat();
-            }
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code16(KC_MS_WH_DOWN);
+        } else {
+            tap_code16(KC_MS_WH_UP);
         }
-    } else if (is_ctrl) {
-        if (index == 0) { /* First encoder */
-            if (clockwise) {
-                rgblight_increase_val();
-            } else {
-                rgblight_decrease_val();
-            }
-        } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                rgblight_increase_speed();
-            } else {
-                rgblight_decrease_speed();
-            }
-        }
-    } else {
-        if (index == 0) { /* First encoder */
-            if (clockwise) {
-                tap_code16(KC_MS_WH_DOWN);
-            } else {
-                tap_code16(KC_MS_WH_UP);
-            }
-        } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
+        } else {
+            tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
         }
     }
     return false;
@@ -198,8 +161,6 @@ void keyboard_post_init_user(void) {
     // Reset the initial shared data value between master and slave
     memset(&user_state, 0, sizeof(user_state));
 
-    void keyboard_post_init_display(void);
-    keyboard_post_init_display();
 }
 
 void user_state_update(void) {
@@ -245,8 +206,3 @@ void housekeeping_task_user(void) {
     // Data sync from master to slave
     user_state_sync();
 }
-
-//----------------------------------------------------------
-// Display
-#include "theme_djinn.inl.c"
-//#include "theme_hf.inl.c"

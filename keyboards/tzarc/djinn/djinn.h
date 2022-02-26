@@ -17,7 +17,6 @@
 #pragma once
 
 #include <quantum.h>
-#include <qp.h>
 
 //----------------------------------------------------------
 // Layout
@@ -55,20 +54,5 @@
 //----------------------------------------------------------
 // Runtime data sync -- keyboard
 
-extern painter_device_t lcd;
-
 #pragma pack(push)
 #pragma pack(1)
-
-typedef struct kb_runtime_config {
-    unsigned          lcd_power : 1;
-    usbpd_allowance_t current_setting : 2;
-} kb_runtime_config;
-
-#pragma pack(pop)
-
-_Static_assert(sizeof(kb_runtime_config) == 1, "Invalid data transfer size for keyboard sync data");
-
-extern kb_runtime_config kb_state;
-
-const char *usbpd_str(usbpd_allowance_t allowance);

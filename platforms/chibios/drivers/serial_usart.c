@@ -259,7 +259,7 @@ void soft_serial_initiator_init(void) {
 int soft_serial_transaction(int index) {
     /* Clear the receive queue, to start with a clean slate.
      * Parts of failed transactions or spurious bytes could still be in it. */
-    usart_clear();
+    //usart_clear();
     return initiate_transaction((uint8_t)index);
 }
 
