@@ -18,9 +18,7 @@ AUDIO_DRIVER = pwm_software
 AUDIO_PIN = A4
 AUDIO_PIN_ALT = A5
 
-CFLAGS += -g$(DEBUG)
 SPLIT_KEYBOARD = yes
-OPT_DEFS += -O0
 
 ENCODER_ENABLE = yes
 
@@ -33,3 +31,13 @@ LTO_ENABLE = yes
 OPT = 2
 
 DEFAULT_FOLDER = tzarc/djinn/rev2
+
+# List of all the board related files.
+BOARDSRC = $(CHIBIOS)/os/hal/boards/ST_NUCLEO64_G474RE/board.c
+
+# Required include directories
+BOARDINC = $(CHIBIOS)/os/hal/boards/ST_NUCLEO64_G474RE
+
+# Shared variables
+ALLCSRC += $(BOARDSRC)
+ALLINC  += $(BOARDINC)

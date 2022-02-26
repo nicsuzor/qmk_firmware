@@ -33,3 +33,17 @@
 // Fault indicators
 #define BOARD_POWER_FAULT_PIN C9
 #define RGB_POWER_FAULT_PIN C4
+
+#ifndef STM32_BOOTLOADER_DUAL_BANK
+#    define STM32_BOOTLOADER_DUAL_BANK FALSE
+#endif
+
+// To Enter bootloader from `RESET` keycode, you'll need to dedicate a GPIO to
+// charge an RC network on the BOOT0 pin.
+// See the QMK Discord's #hardware channel pins for an example circuit.
+// Insert these two lines into your keyboard's `config.h` file.
+// In the case below, PB7 is selected to charge.
+#if 0
+#define STM32_BOOTLOADER_DUAL_BANK TRUE
+#define STM32_BOOTLOADER_DUAL_BANK_GPIO B7
+#endif
