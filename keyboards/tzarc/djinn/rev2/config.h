@@ -19,6 +19,19 @@
 // Split configuration
 #define SPLIT_HAND_PIN B9
 
+#undef SERIAL_DRIVER_USART_DUPLEX
+#define SERIAL_DRIVER_USART_DUPLEX
+#    define SERIAL_USART_DRIVER SD3
+#    define SERIAL_USART_PIN_SWAP
+#    define SERIAL_USART_TX_PIN B10
+#    define SERIAL_USART_TX_PAL_MODE 7
+#    define SERIAL_USART_RX_PIN B11
+#    define SERIAL_USART_RX_PAL_MODE 7
+#    define SERIAL_USART_SPEED 19200
+#    define SELECT_SOFT_SERIAL_SPEED 5
+#    define SERIAL_USART_FULL_DUPLEX
+#    define SERIAL_USART_TIMEOUT 20
+
 #if defined(SERIAL_DRIVER_USART)
 #    define SERIAL_USART_DRIVER SD3
 #    define SERIAL_USART_PIN_SWAP
@@ -27,7 +40,7 @@
 #    define SERIAL_USART_RX_PIN B11
 #    define SERIAL_USART_RX_PAL_MODE 7
 #    ifndef SERIAL_USART_SPEED
-#        define SERIAL_USART_SPEED 1200000
+#        define SERIAL_USART_SPEED 19200
 #    endif  // SERIAL_USART_SPEED
 #    define SERIAL_USART_FULL_DUPLEX
 #endif  // defined(SERIAL_DRIVER_USART)
@@ -40,21 +53,6 @@
 #define RGBLED_SPLIT \
     { 43, 43 }
 
-// EEPROM configuration
-#define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN B5
-#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 8  // (160MHz/8) => 20MHz
-#define EXTERNAL_EEPROM_BYTE_COUNT 8192
-#define EXTERNAL_EEPROM_PAGE_SIZE 64  // it's FRAM, so it doesn't actually matter, this just sets the RAM buffer
-
-// External flash config
-#define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN A8
-#define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 8           // (160MHz/8) => 20MHz
-#define EXTERNAL_FLASH_BYTE_COUNT (4 * 1024 * 1024)  // 32Mb/4MB capacity
-#define EXTERNAL_FLASH_PAGE_SIZE (4 * 1024)          // 4kB pages
-
 // Fault indicators
 #define BOARD_POWER_FAULT_PIN C9
 #define RGB_POWER_FAULT_PIN C4
-
-// Limit the backlight brightness
-#define BACKLIGHT_LIMIT_VAL 144

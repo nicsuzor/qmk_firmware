@@ -18,8 +18,6 @@
 #include <hal.h>
 #include <string.h>
 #include <ctype.h>
-#include <backlight.h>
-#include <qp.h>
 #include <printf.h>
 #include <transactions.h>
 #include <split_util.h>
@@ -95,54 +93,21 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    uint8_t temp_mod = get_mods();
-    uint8_t temp_osm = get_oneshot_mods();
-    bool    is_ctrl  = (temp_mod | temp_osm) & MOD_MASK_CTRL;
-    bool    is_shift = (temp_mod | temp_osm) & MOD_MASK_SHIFT;
 
-    if (is_shift) {
-        if (index == 0) { /* First encoder */
-            if (clockwise) {
-                rgblight_increase_hue();
-            } else {
-                rgblight_decrease_hue();
-            }
-        } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                rgblight_decrease_sat();
-            } else {
-                rgblight_increase_sat();
-            }
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code16(KC_MS_WH_DOWN);
+        } else {
+            tap_code16(KC_MS_WH_UP);
         }
-    } else if (is_ctrl) {
-        if (index == 0) { /* First encoder */
-            if (clockwise) {
-                rgblight_increase_val();
-            } else {
-                rgblight_decrease_val();
-            }
-        } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                rgblight_increase_speed();
-            } else {
-                rgblight_decrease_speed();
-            }
-        }
-    } else {
-        if (index == 0) { /* First encoder */
-            if (clockwise) {
-                tap_code16(KC_MS_WH_DOWN);
-            } else {
-                tap_code16(KC_MS_WH_UP);
-            }
-        } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
+        } else {
+            tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
         }
     }
+
     return false;
 }
 #endif
@@ -198,8 +163,6 @@ void keyboard_post_init_user(void) {
     // Reset the initial shared data value between master and slave
     memset(&user_state, 0, sizeof(user_state));
 
-    void keyboard_post_init_display(void);
-    keyboard_post_init_display();
 }
 
 void user_state_update(void) {
@@ -245,8 +208,3 @@ void housekeeping_task_user(void) {
     // Data sync from master to slave
     user_state_sync();
 }
-
-//----------------------------------------------------------
-// Display
-#include "theme_djinn.inl.c"
-//#include "theme_hf.inl.c"
