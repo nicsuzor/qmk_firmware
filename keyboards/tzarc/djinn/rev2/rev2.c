@@ -23,14 +23,15 @@ void matrix_io_delay(void) {
     for (int i = 0; i < 10; ++i) __asm__ volatile("nop\nnop\nnop\n");
 }
 
+// something is wrong with SPLIT_PLUG_DETECT_PIN -- it's always high.
 bool is_keyboard_master(void) {
     static bool determined = false;
     static bool is_master;
     if (!determined) {
         determined = true;
-        setPinInput(SPLIT_PLUG_DETECT_PIN);
+        setPinInput(SPLIT_HAND_PIN);
         wait_ms(50);
-        is_master = readPin(SPLIT_PLUG_DETECT_PIN) ? true : false;
+        is_master = readPin(SPLIT_HAND_PIN) ? true : false;
         if (!is_master) {
             usbStop(&USBD1);
         }

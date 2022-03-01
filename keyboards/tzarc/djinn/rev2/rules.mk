@@ -1,2 +1,3 @@
 SERIAL_DRIVER = usart
 EEPROM_DRIVER = transient
+NO_USB_STARTUP_CHECK = yes
