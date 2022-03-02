@@ -16,23 +16,20 @@
 
 #pragma once
 
+#define _CHIBIOS_HAL_CONF_
+#define _CHIBIOS_HAL_CONF_VER_8_0_
+
 #define HAL_USE_GPT TRUE
 #define HAL_USE_PWM TRUE
-#define HAL_USE_SPI TRUE
+//#define HAL_USE_SPI TRUE
 
 #define SERIAL_BUFFERS_SIZE 256
 
 // This enables interrupt-driven moe
 #define PAL_USE_WAIT TRUE
 
-#if defined(SERIAL_DRIVER_USART) || defined(SERIAL_DRIVER_USART_DUPLEX_ALT)
 #define HAL_USE_SERIAL TRUE
-#endif  // defined(SERIAL_DRIVER_USART) || defined(SERIAL_DRIVER_USART_DUPLEX_ALT)
 
-#if defined(SERIAL_DRIVER_USART_DUPLEX)
-#define HAL_USE_UART TRUE
-#define UART_USE_WAIT TRUE
-#endif  // defined(SERIAL_DRIVER_USART_DUPLEX)
 
 #include_next <halconf.h>
 

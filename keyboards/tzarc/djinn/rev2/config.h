@@ -18,33 +18,42 @@
 
 // Split configuration
 #define SPLIT_HAND_PIN B9
+//#define MASTER_LEFT
 
-#define SERIAL_USART_DRIVER SD3
+#undef SERIAL_DRIVER_USART_DUPLEX
+#define SERIAL_DRIVER_USART_DUPLEX
+#    define SERIAL_USART_DRIVER SD3
 #    define SERIAL_USART_PIN_SWAP
-#    define SERIAL_USART_TX_PIN B11 //B10
+#    define SERIAL_USART_TX_PIN B10
 #    define SERIAL_USART_TX_PAL_MODE 7
-#    define SERIAL_USART_RX_PIN B10 //B11
+#    define SERIAL_USART_RX_PIN B11
 #    define SERIAL_USART_RX_PAL_MODE 7
+#    define SERIAL_USART_SPEED 19200
+#    define SELECT_SOFT_SERIAL_SPEED 5
+#    define SERIAL_USART_FULL_DUPLEX
+#    define SERIAL_USART_TIMEOUT 20
 
-#    define SERIAL_USART_SPEED 38400
+#if defined(SERIAL_DRIVER_USART)
+#    define SERIAL_USART_DRIVER SD3
+#    define SERIAL_USART_PIN_SWAP
+#    define SERIAL_USART_TX_PIN B10
+#    define SERIAL_USART_TX_PAL_MODE 7
+#    define SERIAL_USART_RX_PIN B11
+#    define SERIAL_USART_RX_PAL_MODE 7
+#    ifndef SERIAL_USART_SPEED
+#        define SERIAL_USART_SPEED 19200
+#    endif  // SERIAL_USART_SPEED
+#    define SERIAL_USART_FULL_DUPLEX
+#endif  // defined(SERIAL_DRIVER_USART)
 
-#undef SERIAL_USART_FULL_DUPLEX
-//#    define SERIAL_USART_FULL_DUPLEX
+// RGB configuration
+#define RGB_POWER_ENABLE_PIN B0
+#define RGB_CURR_1500mA_OK_PIN C5
+#define RGB_CURR_3000mA_OK_PIN C4
+#define RGBLED_NUM 86
+#define RGBLED_SPLIT \
+    { 43, 43 }
 
 // Fault indicators
 #define BOARD_POWER_FAULT_PIN C9
 #define RGB_POWER_FAULT_PIN C4
-
-#ifndef STM32_BOOTLOADER_DUAL_BANK
-#    define STM32_BOOTLOADER_DUAL_BANK FALSE
-#endif
-
-// To Enter bootloader from `RESET` keycode, you'll need to dedicate a GPIO to
-// charge an RC network on the BOOT0 pin.
-// See the QMK Discord's #hardware channel pins for an example circuit.
-// Insert these two lines into your keyboard's `config.h` file.
-// In the case below, PB7 is selected to charge.
-#if 0
-#define STM32_BOOTLOADER_DUAL_BANK TRUE
-#define STM32_BOOTLOADER_DUAL_BANK_GPIO B7
-#endif

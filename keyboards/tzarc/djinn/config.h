@@ -23,7 +23,7 @@
 #define PRODUCT_ID 0x4919
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Tzarc
-#define PRODUCT dc
+#define PRODUCT Djinn
 
 // Matrix
 #define MATRIX_ROWS 12
@@ -52,36 +52,30 @@
 #define LCD_POWER_ENABLE_PIN A6
 
 // Split configuration
-#define SPLIT_PLUG_DETECT_PIN B12
+//#define SPLIT_PLUG_DETECT_PIN B12
 #define SPLIT_TRANSACTION_IDS_KB RPC_ID_SYNC_STATE_KB
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
+//#define SPLIT_LED_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
+#define SPLIT_WPM_ENABLE
 
-// Allow for an extra sync command over the split
+#define SPLIT_MAX_CONNECTION_ERRORS 100
+
 #define SPLIT_TRANSACTION_IDS_USER USER_DATA_SYNC
-
-// SPI Configuration
-#define SPI_DRIVER SPID3
-#define SPI_SCK_PIN C10
-#define SPI_SCK_PAL_MODE 6
-#define SPI_MOSI_PIN C12
-#define SPI_MOSI_PAL_MODE 6
-#define SPI_MISO_PIN C11
-#define SPI_MISO_PAL_MODE 6
+//#define NO_USB_STARTUP_CHECK TRUE
 
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-// 1000Hz poll rate
-#define USB_POLLING_INTERVAL_MS 1
 
 // Audio configuration
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4
 #define AUDIO_PIN_ALT_AS_NEGATIVE
+#define A5_AUDIO
 #ifndef STARTUP_SONG
 #    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif  // STARTUP_SONG
+
+/* disable these deprecated features by default */
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
