@@ -17,7 +17,6 @@
 #pragma once
 
 #include <quantum.h>
-// #include <qp.h>
 
 //----------------------------------------------------------
 // Layout

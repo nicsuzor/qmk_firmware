@@ -18,12 +18,11 @@
 #include <hal.h>
 #include <string.h>
 #include <ctype.h>
-#include <backlight.h>
-#include <qp.h>
 #include <printf.h>
 #include <transactions.h>
 #include <split_util.h>
 
+#include "config.h"
 #define MEDIA_KEY_DELAY 5
 
 // Layer definitions
@@ -35,15 +34,15 @@ enum { _QWERTY, _LOWER, _RAISE, _ADJUST };
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_all(
-        KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    KC_GRV,                           KC_DEL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-        KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,                          KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-        KC_LCTL,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME,                          KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_END,                           KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-                                   KC_LGUI, KC_LWR,  KC_SPC,  KC_LWR,                            KC_RSE,   KC_SPC,  KC_RSE,  KC_LALT,
+        RGB_RMOD,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    RGB_RMOD,                           RGB_RMOD,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    RGB_RMOD,
+        KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,    KC_PGUP,                          KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+        KC_ESC,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_PGDN ,                          KC_HOME, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_DEL,                           KC_END, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
+                                   KC_LALT,  KC_LCTL, KC_SPC, KC_LWR,                           KC_RSE,   KC_SPC,  KC_LGUI,  KC_LCTL,
                                                                       RGB_RMOD,         RGB_MOD,
-                                                     KC_UP,                                              KC_UP,
-                                            EEP_RST, _______, RESET,                         EEP_RST, _______, RESET,
-                                                     DEBUG,                                            DEBUG
+                                                     RGB_RMOD,                                              RGB_RMOD,
+                                            DEBUG,   EEP_RST, RESET,                         RESET,   EEP_RST, DEBUG,
+                                                     EEP_RST,                                            EEP_RST
     ),
     [_LOWER] = LAYOUT_all(
         KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                         _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
@@ -81,6 +80,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Default handler for lower/raise/adjust
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
+
+#ifdef AUDIO_ENABLE
+    float master_song[][2] = SONG(WORKMAN_SOUND);
+    float receiver_song[][2] = SONG(MUSIC_ON_SOUND);
+#endif
+
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY] = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
@@ -90,54 +99,33 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    uint8_t temp_mod = get_mods();
-    uint8_t temp_osm = get_oneshot_mods();
-    bool    is_ctrl  = (temp_mod | temp_osm) & MOD_MASK_CTRL;
-    bool    is_shift = (temp_mod | temp_osm) & MOD_MASK_SHIFT;
+#ifdef RGBLIGHT_ENABLE
 
-    if (is_shift) {
-        if (index == 0) { /* First encoder */
-            if (clockwise) {
-                rgblight_increase_hue();
-            } else {
-                rgblight_decrease_hue();
-            }
-        } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                rgblight_decrease_sat();
-            } else {
-                rgblight_increase_sat();
-            }
+    rgblight_enable_noeeprom();
+    // Turn on RGB_PWR
+    writePinHigh(RGB_POWER_ENABLE_PIN);
+
+    rgblight_step();
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_step();
+#endif
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+
+            tap_code16(KC_MS_WH_DOWN);
+        } else {
+            tap_code16(KC_MS_WH_UP);
         }
-    } else if (is_ctrl) {
-        if (index == 0) { /* First encoder */
-            if (clockwise) {
-                rgblight_increase_val();
-            } else {
-                rgblight_decrease_val();
-            }
-        } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                rgblight_increase_speed();
-            } else {
-                rgblight_decrease_speed();
-            }
-        }
-    } else {
-        if (index == 0) { /* First encoder */
-            if (clockwise) {
-                tap_code16(KC_MS_WH_DOWN);
-            } else {
-                tap_code16(KC_MS_WH_UP);
-            }
-        } else if (index == 1) { /* Second encoder */
-            if (clockwise) {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
+        } else {
+            tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
         }
     }
+
     return false;
 }
 #endif
@@ -186,21 +174,31 @@ void rpc_user_sync_callback(uint8_t initiator2target_buffer_size, const void *in
     }
 }
 
-void keyboard_post_init_keymap(void) {
+void keyboard_post_init_user(void) {
     // Register keyboard state sync split transaction
     transaction_register_rpc(USER_DATA_SYNC, rpc_user_sync_callback);
 
     // Reset the initial shared data value between master and slave
     memset(&user_state, 0, sizeof(user_state));
 
-    void keyboard_post_init_display(void);
-    keyboard_post_init_display();
+    #ifdef AUDIO_ENABLE
+        if (!is_keyboard_master()) {
+            PLAY_SONG(master_song);
+        } else {
+            PLAY_SONG(receiver_song);
+        }
+    #endif
+
+    debug_enable=true;
+    debug_matrix=true;
+    debug_keyboard=true;
+
 }
 
 void user_state_update(void) {
     if (is_keyboard_master()) {
         // Keep the scan rate in sync
-        //user_state.scan_rate = get_matrix_scan_rate();
+        user_state.scan_rate = get_matrix_scan_rate();
     }
 }
 
@@ -241,7 +239,9 @@ void housekeeping_task_user(void) {
     user_state_sync();
 }
 
-//----------------------------------------------------------
-// Display
-#include "theme_djinn.inl.c"
-//#include "theme_hf.inl.c"
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (debug_enable) {
+        dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+    }
+    return true;
+}

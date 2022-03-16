@@ -21,12 +21,14 @@
 #include "djinn.h"
 #include "serial.h"
 #include "split_util.h"
-#include "ch.h"
+
 
 kb_runtime_config kb_state;
 uint32_t          last_slave_sync_time = 0;
 
-void board_init(void) { usbpd_init(); }
+void board_init(void) {
+
+}
 
 __attribute__((weak)) void draw_ui_user(void) {}
 
@@ -35,16 +37,48 @@ const char* usbpd_str(usbpd_allowance_t allowance) {
         default:
         case USBPD_500MA:
             return "500mA";
+        case USBPD_1500MA:
+            return "1500mA";
+        case USBPD_3000MA:
+            return "3000mA";
     }
 }
 
 void usbpd_update(void) {
+       static uint32_t last_read = 0;
+       if (timer_elapsed32(last_read) > 250) {
+               last_read = timer_read32();
+               switch (usbpd_get_allowance()) {
+                       case USBPD_500MA:
+                               if (kb_state.current_setting != USBPD_500MA) {
+                                   dprintf("Transitioning UCPD1 %s -> %s\n", usbpd_str(kb_state.current_setting), usbpd_str(USBPD_500MA));
+                                   kb_state.current_setting = USBPD_500MA;
+                               }
+                           break;
+                       case USBPD_1500MA:
+                               if (kb_state.current_setting != USBPD_1500MA) {
+                                   dprintf("Transitioning UCPD1 %s -> %s\n", usbpd_str(kb_state.current_setting), usbpd_str(USBPD_1500MA));
+                                   kb_state.current_setting = USBPD_1500MA;
+                               }
+                           break;
+                       case USBPD_3000MA:
+                               if (kb_state.current_setting != USBPD_3000MA) {
+                                    dprintf("Transitioning UCPD1 %s -> %s\n", usbpd_str(kb_state.current_setting), usbpd_str(USBPD_3000MA));
+                                    kb_state.current_setting = USBPD_3000MA;
+                                }
+                            break;
+               }
+            }
 
 }
 
 void kb_state_update(void) {
     if (is_keyboard_master()) {
+        // Modify allowed current limits
+        usbpd_update();
 
+        // Turn off the LCD if there's been no matrix activity
+        kb_state.lcd_power = (last_input_activity_elapsed() < LCD_ACTIVITY_TIMEOUT) ? 1 : 0;
     }
 }
 
@@ -98,6 +132,44 @@ void housekeeping_task_kb(void) {
     kb_state_sync();
 
 
+       // Work out if we've changed our current limit, update the limiter circuit switches
+           static uint8_t current_setting = USBPD_500MA;
+       if (current_setting != kb_state.current_setting) {
+           current_setting = kb_state.current_setting;
+           switch (current_setting) {
+               default:
+               case USBPD_500MA:
+                   writePinLow(RGB_CURR_1500mA_OK_PIN);
+                   writePinLow(RGB_CURR_3000mA_OK_PIN);
+                   break;
+#ifdef DJINN_SUPPORTS_3A_FUSE
+               case USBPD_1500MA:
+                   writePinHigh(RGB_CURR_1500mA_OK_PIN);
+                   writePinLow(RGB_CURR_3000mA_OK_PIN);
+                   break;
+               case USBPD_3000MA:
+                   writePinHigh(RGB_CURR_1500mA_OK_PIN);
+                   writePinHigh(RGB_CURR_3000mA_OK_PIN);
+                   break;
+#else
+               case USBPD_1500MA:
+               case USBPD_3000MA:
+                   writePinHigh(RGB_CURR_1500mA_OK_PIN);
+                   writePinLow(RGB_CURR_3000mA_OK_PIN);
+                   break;
+#endif
+           }
+       }
+       if (is_keyboard_master() && rgblight_is_enabled()) {
+               rgblight_disable_noeeprom();
+               rgblight_enable_noeeprom();
+       }
+
+       if (rgblight_is_enabled()) {
+            rgblight_enable_noeeprom();
+               // Turn on RGB_PWR
+                   writePinHigh(RGB_POWER_ENABLE_PIN);
+       }
 }
 
 //----------------------------------------------------------
@@ -109,6 +181,16 @@ void keyboard_post_init_kb(void) {
 
     // Reset the initial shared data value between master and slave
     memset(&kb_state, 0, sizeof(kb_state));
+
+    // Turn off increased current limits
+    setPinOutput(RGB_CURR_1500mA_OK_PIN);
+    writePinLow(RGB_CURR_1500mA_OK_PIN);
+    setPinOutput(RGB_CURR_3000mA_OK_PIN);
+    writePinLow(RGB_CURR_3000mA_OK_PIN);
+
+    // Turn on the RGB
+    setPinOutput(RGB_POWER_ENABLE_PIN);
+    writePinHigh(RGB_POWER_ENABLE_PIN);
 
     // Allow for user post-init
     keyboard_post_init_user();
@@ -168,3 +250,4 @@ void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col,
     while (chSysIsCounterWithinX(chSysGetRealtimeCounterX(), start, end))
         if ((palReadPort(GPIOC) & GPIOC_BITMASK) == GPIOC_BITMASK) break;
 }
+

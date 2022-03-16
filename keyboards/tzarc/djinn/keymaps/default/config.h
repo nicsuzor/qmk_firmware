@@ -16,16 +16,29 @@
 
 #pragma once
 
-#ifndef STM32_BOOTLOADER_DUAL_BANK
-#    define STM32_BOOTLOADER_DUAL_BANK FALSE
-#endif
+// 1000Hz poll rate
+#define USB_POLLING_INTERVAL_MS 1
 
-// To Enter bootloader from `RESET` keycode, you'll need to dedicate a GPIO to
-// charge an RC network on the BOOT0 pin.
-// See the QMK Discord's #hardware channel pins for an example circuit.
-// Insert these two lines into your keyboard's `config.h` file.
-// In the case below, PB7 is selected to charge.
-#if 0
-#define STM32_BOOTLOADER_DUAL_BANK TRUE
-#define STM32_BOOTLOADER_DUAL_BANK_GPIO B7
-#endif
+// Encoder settings
+#define ENCODER_RESOLUTION 2
+
+// LCD blanking period
+#define LCD_ACTIVITY_TIMEOUT 30000
+
+// RGB settings
+#define RGBLIGHT_ANIMATIONS
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+// Allow for an extra sync command over the split
+#define SPLIT_TRANSACTION_IDS_USER USER_DATA_SYNC
+
+// RGB configuration
+#define RGB_POWER_ENABLE_PIN B0
+#define RGB_CURR_1500mA_OK_PIN C5
+#define RGB_CURR_3000mA_OK_PIN C4
+#define RGBLED_NUM 86
+#define RGBLED_SPLIT \
+    { 43, 43 }
+
+#define DRIVER_LED_TOTAL 86
