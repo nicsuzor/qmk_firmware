@@ -54,7 +54,6 @@
 #define RGBLED_SPLIT \
     { 43, 43 }
 
-#define DRIVER_LED_TOTAL 86
 
 // Fault indicators
 #define BOARD_POWER_FAULT_PIN C9

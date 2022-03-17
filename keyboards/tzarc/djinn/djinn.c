@@ -32,7 +32,17 @@ void board_init(void) {
 
 __attribute__((weak)) void draw_ui_user(void) {}
 
-
+const char* usbpd_str(usbpd_allowance_t allowance) {
+    switch (allowance) {
+        default:
+        case USBPD_500MA:
+            return "500mA";
+        case USBPD_1500MA:
+            return "1500mA";
+        case USBPD_3000MA:
+            return "3000mA";
+    }
+}
 
 void usbpd_update(void) {
        static uint32_t last_read = 0;

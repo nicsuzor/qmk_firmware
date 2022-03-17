@@ -21,7 +21,6 @@
 #include <printf.h>
 #include <transactions.h>
 #include <split_util.h>
-#include <backlight.h>
 
 #define MEDIA_KEY_DELAY 5
 

@@ -21,7 +21,6 @@
 #include <printf.h>
 #include <transactions.h>
 #include <split_util.h>
-#include <backlight.h>
 
 #include "config.h"
 #define MEDIA_KEY_DELAY 5
@@ -175,6 +174,7 @@ void rpc_user_sync_callback(uint8_t initiator2target_buffer_size, const void *in
     }
 }
 
+__attribute__((weak)) void keyboard_post_init_keymap(void) {}
 void keyboard_post_init_user(void) {
     // Register keyboard state sync split transaction
     transaction_register_rpc(USER_DATA_SYNC, rpc_user_sync_callback);
@@ -189,7 +189,6 @@ void keyboard_post_init_user(void) {
             PLAY_SONG(receiver_song);
         }
     #endif
-        __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
     debug_enable=true;
 #if defined(DEBUG_ENABLE) || defined(DEBUG)
@@ -199,8 +198,6 @@ void keyboard_post_init_user(void) {
     //debug_mouse=true;X
 #endif
 
-    uprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
-    uprintf(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
 }
 
 void user_state_update(void) {
@@ -251,5 +248,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (debug_enable) {
         dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     }
-
+    return true;
 }

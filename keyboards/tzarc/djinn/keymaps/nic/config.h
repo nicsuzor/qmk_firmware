@@ -33,12 +33,7 @@
 #define RGBLED_SPLIT \
     { 43, 43 }
 
-#define DRIVER_LED_TOTAL 86
-
-#define DRIVER_LED_TOTAL 86
-#define RGBLED_NUM 86
-#define RGBLED_SPLIT \
-    { 43, 43 }
+#define RGB_DI_PIN B2
 
 // RGB settings
 #define RGBLIGHT_ANIMATIONS
