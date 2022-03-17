@@ -32,3 +32,13 @@
 
 // Allow for an extra sync command over the split
 #define SPLIT_TRANSACTION_IDS_USER USER_DATA_SYNC
+
+// RGB configuration
+#define RGB_POWER_ENABLE_PIN B0
+#define RGB_CURR_1500mA_OK_PIN C5
+#define RGB_CURR_3000mA_OK_PIN C4
+#define RGBLED_NUM 86
+#define RGBLED_SPLIT \
+    { 43, 43 }
+
+#define DRIVER_LED_TOTAL 86

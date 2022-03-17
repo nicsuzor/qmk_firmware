@@ -17,6 +17,7 @@
 #include <hal.h>
 #include <quantum.h>
 #include "rev2.h"
+#include "config.h"
 
 // Delays can be shorter than 30us.
 void matrix_io_delay(void) {
