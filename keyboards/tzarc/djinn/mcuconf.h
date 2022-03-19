@@ -18,6 +18,8 @@
 
 #include_next <mcuconf.h>
 
+#define CORTEX_ENABLE_WFI_IDLE FALSE
+
 // Used for audio
 #undef STM32_PWM_USE_TIM1
 #undef STM32_GPT_USE_TIM6
@@ -30,11 +32,11 @@
 
 // Used for backlight
 #undef STM32_PWM_USE_TIM17
-#define STM32_PWM_USE_TIM17 TRUE
+//#define STM32_PWM_USE_TIM17 TRUE
 
 // Used for SK6812 chain
 #undef STM32_PWM_USE_TIM20
-#define STM32_PWM_USE_TIM20 TRUE
+//#define STM32_PWM_USE_TIM20 TRUE
 
 // Used for split comms
 #undef STM32_SERIAL_USE_USART3

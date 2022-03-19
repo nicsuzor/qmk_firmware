@@ -99,29 +99,63 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
+
+
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
 #ifdef RGBLIGHT_ENABLE
 
-    rgblight_enable_noeeprom();
-    // Turn on RGB_PWR
-    writePinHigh(RGB_POWER_ENABLE_PIN);
+            rgblight_enable_noeeprom();
+            // Turn on RGB_PWR
+            writePinHigh(RGB_POWER_ENABLE_PIN);
 
-    rgblight_step();
+            rgblight_step();
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_step();
+            rgb_matrix_step();
 #endif
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-
             tap_code16(KC_MS_WH_DOWN);
         } else {
+#ifdef RGBLIGHT_ENABLE
+
+            rgblight_enable_noeeprom();
+            // Turn on RGB_PWR
+            writePinHigh(RGB_POWER_ENABLE_PIN);
+
+            rgblight_step();
+#endif
+#ifdef RGB_MATRIX_ENABLE
+            rgb_matrix_step();
+#endif
             tap_code16(KC_MS_WH_UP);
         }
     } else if (index == 1) { /* Second encoder */
+#ifdef RGBLIGHT_ENABLE
+
+        rgblight_enable_noeeprom();
+        // Turn on RGB_PWR
+        writePinHigh(RGB_POWER_ENABLE_PIN);
+
+        rgblight_step();
+#endif
+#ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_step();
+#endif
         if (clockwise) {
             tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
         } else {
+#ifdef RGBLIGHT_ENABLE
+
+            rgblight_enable_noeeprom();
+            // Turn on RGB_PWR
+            writePinHigh(RGB_POWER_ENABLE_PIN);
+
+            rgblight_step();
+#endif
+#ifdef RGB_MATRIX_ENABLE
+            rgb_matrix_step();
+#endif
             tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
         }
     }
@@ -191,12 +225,9 @@ void keyboard_post_init_user(void) {
     #endif
 
     debug_enable=true;
-#if defined(DEBUG_ENABLE) || defined(DEBUG)
-    debug_enable=true;
     debug_matrix=true;
     debug_keyboard=true;
-    //debug_mouse=true;X
-#endif
+    //debug_mouse=true;
 
 }
 
