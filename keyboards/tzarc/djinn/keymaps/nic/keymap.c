@@ -23,54 +23,56 @@
 #include <split_util.h>
 
 #include "config.h"
+#include "nic.h"
 #define MEDIA_KEY_DELAY 5
-
-// Layer definitions
-enum { _QWERTY, _LOWER, _RAISE, _ADJUST };
 
 #define KC_LWR MO(_LOWER)
 #define KC_RSE MO(_RAISE)
 
 // clang-format off
+
+#define LAYOUT_dj_wrapper(...)       LAYOUT_all(__VA_ARGS__)
+
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_all(
-        RGB_RMOD,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    RGB_RMOD,                           RGB_RMOD,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    RGB_RMOD,
-        KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,    KC_PGUP,                          KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-        KC_ESC,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_PGDN ,                          KC_HOME, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_DEL,                           KC_END, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
-                                   KC_LALT,  KC_LCTL, KC_SPC, KC_LWR,                           KC_RSE,   KC_SPC,  KC_LGUI,  KC_LCTL,
+    [_QWERTY] = LAYOUT_dj_wrapper(
+        ________________NUMBER_LEFT________________,   RGB_RMOD,                           RGB_RMOD,  ________________NUMBER_RIGHT_______________ ,
+       _________________QWERTY_L1_________________,    KC_PGUP,                                         KC_RBRC, _________________QWERTY_R1_________________,
+        _________________QWERTY_L2_________________,   KC_PGDN ,                                KC_HOME,  _________________QWERTY_R2_________________,
+       _________________QWERTY_L3_________________,    KC_DEL,                           KC_END,  _________________QWERTY_R3_________________,
+                                   KC_LALT,  KC_LCTL, KC_LWR, KC_SPC,                          KC_SPC,  KC_RSE,  KC_LGUI,  KC_LCTL,
                                                                       RGB_RMOD,         RGB_MOD,
                                                      RGB_RMOD,                                              RGB_RMOD,
                                             DEBUG,   EEP_RST, RESET,                         RESET,   EEP_RST, DEBUG,
                                                      EEP_RST,                                            EEP_RST
     ),
-    [_LOWER] = LAYOUT_all(
+    [_LOWER] = LAYOUT_dj_wrapper(
         KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                         _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-        _______, _______, KC_UP,   _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
-        _______, KC_LEFT, KC_DOWN, KC_RIGHT,_______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
+       _________________LOWER_L2__________________, _______,                         _______,  _________________LOWER_R3__________________,
+       _________________LOWER_L3__________________, _______,                         _______,  _________________LOWER_R3__________________,
+       _________________LOWER_L4__________________, _______,                         _______,  _________________LOWER_R4__________________,
                                    _______, _______, _______, _______,                         _______, _______, _______, _______,
                                                                      BL_DEC,             BL_INC,
                                                      _______,                                           _______,
                                             _______, _______, _______,                         _______, _______, _______,
                                                      _______,                                           _______
     ),
-    [_RAISE] = LAYOUT_all(
-        KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                         _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-        _______,_______, KC_UP,    _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
-        _______,KC_LEFT, KC_DOWN, KC_RIGHT, _______, KC_UNDS, KC_NO,                           KC_NO,   KC_EQL,  _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, KC_MINS, KC_NO,                           KC_NO,   KC_PLUS, _______, _______, _______, _______, _______,
+    [_RAISE] = LAYOUT_dj_wrapper(
+        _________________RAISE_L1__________________,   _______,                         _______, _________________RAISE_R1__________________,
+       _________________RAISE_L2__________________, _______,                         _______, _________________RAISE_R2__________________,
+        _________________RAISE_L3__________________, KC_NO,                           KC_NO,   _________________RAISE_R3__________________,
+        _________________RAISE_L4__________________, KC_NO,                           KC_NO,   _________________RAISE_R4__________________,
                                    _______, _______, _______, _______,                         _______, _______, _______, _______,
                                                                      _______,           _______,
                                                      _______,                                           _______,
                                             _______, _______, _______,                         _______, _______, _______,
                                                      _______,                                           _______
     ),
-    [_ADJUST] = LAYOUT_all(
-        _______, KC_CLCK, KC_NLCK, KC_SLCK, _______, _______, _______,                         _______, _______, _______, _______, DEBUG,   EEP_RST, RESET,
-        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
+    [_ADJUST] = LAYOUT_dj_wrapper(
+        _________________ADJUST_L1_________________, _______,                         _______, _________________ADJUST_R1_________________,
+        _________________ADJUST_L2_________________, _______,                         _______,  _________________ADJUST_R2_________________,
+        _________________ADJUST_L3_________________, _______,                         _______,  _________________ADJUST_R3_________________,
+        _________________ADJUST_L4_________________, _______,                         _______,  _________________ADJUST_R4_________________,
                                    _______, _______, _______, _______,                         _______, _______, _______, _______,
                                                                      _______,           _______,
                                                      _______,                                           _______,
@@ -78,17 +80,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______,                                           _______
     )
 };
+
+
 // clang-format on
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // Default handler for lower/raise/adjust
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-#ifdef AUDIO_ENABLE
-    float master_song[][2] = SONG(WORKMAN_SOUND);
-    float receiver_song[][2] = SONG(MUSIC_ON_SOUND);
-#endif
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -103,59 +98,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
     if (index == 0) { /* First encoder */
         if (clockwise) {
-#ifdef RGBLIGHT_ENABLE
-
-            rgblight_enable_noeeprom();
-            // Turn on RGB_PWR
-            writePinHigh(RGB_POWER_ENABLE_PIN);
-
-            rgblight_step();
-#endif
-
-#ifdef RGB_MATRIX_ENABLE
-            rgb_matrix_step();
-#endif
             tap_code16(KC_MS_WH_DOWN);
         } else {
-#ifdef RGBLIGHT_ENABLE
-
-            rgblight_enable_noeeprom();
-            // Turn on RGB_PWR
-            writePinHigh(RGB_POWER_ENABLE_PIN);
-
-            rgblight_step();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-            rgb_matrix_step();
-#endif
             tap_code16(KC_MS_WH_UP);
         }
     } else if (index == 1) { /* Second encoder */
-#ifdef RGBLIGHT_ENABLE
-
-        rgblight_enable_noeeprom();
-        // Turn on RGB_PWR
-        writePinHigh(RGB_POWER_ENABLE_PIN);
-
-        rgblight_step();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_step();
-#endif
         if (clockwise) {
             tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
         } else {
-#ifdef RGBLIGHT_ENABLE
-
-            rgblight_enable_noeeprom();
-            // Turn on RGB_PWR
-            writePinHigh(RGB_POWER_ENABLE_PIN);
-
-            rgblight_step();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-            rgb_matrix_step();
-#endif
             tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
         }
     }
@@ -208,26 +158,13 @@ void rpc_user_sync_callback(uint8_t initiator2target_buffer_size, const void *in
     }
 }
 
-__attribute__((weak)) void keyboard_post_init_keymap(void) {}
-void keyboard_post_init_user(void) {
+__attribute__((weak)) void keyboard_post_init_keymap(void)  {
     // Register keyboard state sync split transaction
     transaction_register_rpc(USER_DATA_SYNC, rpc_user_sync_callback);
 
     // Reset the initial shared data value between master and slave
     memset(&user_state, 0, sizeof(user_state));
 
-    #ifdef AUDIO_ENABLE
-        if (!is_keyboard_master()) {
-            PLAY_SONG(master_song);
-        } else {
-            PLAY_SONG(receiver_song);
-        }
-    #endif
-
-    debug_enable=true;
-    debug_matrix=true;
-    debug_keyboard=true;
-    //debug_mouse=true;
 
 }
 
@@ -273,11 +210,4 @@ void housekeeping_task_user(void) {
 
     // Data sync from master to slave
     user_state_sync();
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (debug_enable) {
-        dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-    }
-    return true;
 }
