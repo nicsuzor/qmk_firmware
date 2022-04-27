@@ -15,6 +15,8 @@ BIN_FOLDER = /mnt/e/bin
 cp: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to $(BIN_FOLDER)/$(TARGET).$(FIRMWARE_FORMAT)" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(BIN_FOLDER)/$(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
+	$(SILENT) || printf "Copying $(TARGET).elf to $(BIN_FOLDER)/$(TARGET).elf" | $(AWK_CMD)
+	$(COPY) $(BUILD_DIR)/$(TARGET).elf $(BIN_FOLDER)/$(TARGET).elf && $(PRINT_OK)
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += tap_dances.c

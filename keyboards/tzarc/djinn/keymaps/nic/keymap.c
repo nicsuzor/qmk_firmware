@@ -32,20 +32,22 @@
 // clang-format off
 
 #define LAYOUT_dj_wrapper(...)       LAYOUT_all(__VA_ARGS__)
+/*
+*/
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_dj_wrapper(
-        ________________NUMBER_LEFT________________,   RGB_RMOD,                           RGB_RMOD,  ________________NUMBER_RIGHT_______________ ,
-       _________________QWERTY_L1_________________,    KC_PGUP,                                         KC_RBRC, _________________QWERTY_R1_________________,
-        _________________QWERTY_L2_________________,   KC_PGDN ,                                KC_HOME,  _________________QWERTY_R2_________________,
-       _________________QWERTY_L3_________________,    KC_DEL,                           KC_END,  _________________QWERTY_R3_________________,
-                                   KC_LALT,  KC_LCTL, KC_LWR, KC_SPC,                          KC_SPC,  KC_RSE,  KC_LGUI,  KC_LCTL,
-                                                                      RGB_RMOD,         RGB_MOD,
-                                                     RGB_RMOD,                                              RGB_RMOD,
-                                            DEBUG,   EEP_RST, RESET,                         RESET,   EEP_RST, DEBUG,
-                                                     EEP_RST,                                            EEP_RST
-    ),
+    ________________NUMBER_LEFT________________,   RGB_RMOD,                           RGB_RMOD,  ________________NUMBER_RIGHT_______________ ,
+    _________________QWERTY_L1_________________,    KC_PGUP,                             KC_HOME, _________________QWERTY_R1_________________,
+    _________________QWERTY_L2_________________,   KC_PGDN ,                            KC_END,   _________________QWERTY_R2_________________,
+    _________________QWERTY_L3_________________,    KC_DEL,                             KC_INS,   _________________QWERTY_R3_________________,
+                               KC_LALT,  KC_LCTL, KC_SPC, KC_LWR,                         KC_RSE,  KC_SPC,  KC_LCTL, KC_LGUI,
+                                                                  RGB_RMOD,         RGB_MOD,
+                                                 RGB_RMOD,                                              RGB_RMOD,
+                                        DEBUG,   EEP_RST, RESET,                         RESET,   EEP_RST, DEBUG,
+                                                 EEP_RST,                                            EEP_RST
+),
     [_LOWER] = LAYOUT_dj_wrapper(
         KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                         _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
        _________________LOWER_L2__________________, _______,                         _______,  _________________LOWER_R3__________________,
