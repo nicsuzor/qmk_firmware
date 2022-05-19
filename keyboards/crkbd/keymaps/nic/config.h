@@ -20,24 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MASTER_LEFT
+#undef SOFT_SERIAL_PIN
+#define SOFT_SERIAL_PIN A10
 
 #ifdef AUDIO_ENABLE
 #    define NO_MUSIC_MODE
 #    define AUDIO_CLICKY
 #endif
-
-//#define USE_I2C
-//#define USE_SERIAL_PD2
-//#undef USE_SERIAL
-//#define USE_MATRIX_I2C
-
-#define SELECT_SOFT_SERIAL_SPEED 0
-#undef SOFT_SERIAL_PIN
-#define SOFT_SERIAL_PIN A10
-#define SERIAL_USE_MULTI_TRANSACTION
-
-#define SPLIT_USB_DETECT
 
 /* key matrix size */
 // Rows are doubled-up
@@ -74,10 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGB_MATRIX_SPLIT
 //#define RGB_MATRIX_SPLIT { 27, 27 }
 
-#ifdef SPLIT_TRANSPORT_MIRROR
-#undef SPLIT_TRANSPORT_MIRROR
-#endif
-//#define SPLIT_TRANSPORT_MIRROR
 
 //#define SSD1306OLED
 //#define USE_I2C
