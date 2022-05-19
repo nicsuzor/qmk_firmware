@@ -77,11 +77,19 @@
 #    define QMK_KEYS_PER_SCAN 4
 #endif  // !QMK_KEYS_PER_SCAN
 
-#if defined(IGNORE_MOD_TAP_INTERRUPT)
-#undef IGNORE_MOD_TAP_INTERRUPT
+//Enabling IGNORE_MOD_TAP_INTERRUPT is recommended when using Mod-Tap on alphanumeric keys to avoid hold function taking precendence when the next key is pressed quickly. See Ignore Mod Tap Interrupt for more details.
+//This option affects only the Mod Tap keys; it does not affect other dual-role keys such as Layer Tap.
+#if !defined(IGNORE_MOD_TAP_INTERRUPT)
+#define IGNORE_MOD_TAP_INTERRUPT
 #endif
 
+// Need something similar that works for LT(_LOWER, KC_SPC)
+
+
+#if defined(PERMISSIVE_HOLD)
 #undef PERMISSIVE_HOLD
+#endif
+
 #if defined(TAPPING_FORCE_HOLD)
 #undef TAPPING_FORCE_HOLD
 #endif
@@ -93,24 +101,9 @@
 #if defined(TAPPING_TERM)
 #    undef TAPPING_TERM
 #endif  // TAPPING_TERM
-
-#define TAPPING_TERM 170
-/*
-// Keyboard specific customisations
-#if defined(KEYBOARD_lily58_rev1)
-
-#elif defined(KEYBOARD_crkbd)
-#    define TAPPING_TERM 150
-#elif defined(KEYBOARD_planck_ez)
-#    undef AUTO_SHIFT_ENABLE
-#    undef RGB_MATRIX_ENABLE
-#else
-#    define TAPPING_TERM 160
-#endif*/
-
+#define TAPPING_TERM 190
 
 #define FORCE_NKRO
-
 
 #if defined(AUTO_SHIFT_ENABLE)
 #    undef AUTO_SHIFT_ENABLE

@@ -41,10 +41,23 @@ void matrix_init_user(void) {
 #endif
 }
 
+#ifdef AUDIO_ENABLE
+float master_song[][2] = SONG(WORKMAN_SOUND);
+float receiver_song[][2] = SONG(MUSIC_ON_SOUND);
+#endif
+
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
     keyboard_post_init_keymap();
+
+    #ifdef AUDIO_ENABLE
+        if (!is_keyboard_master()) {
+            PLAY_SONG(master_song);
+        } else {
+            PLAY_SONG(receiver_song);
+        }
+    #endif
 
     debug_enable=true;
 #if defined(DEBUG_ENABLE) || defined(DEBUG)
@@ -54,9 +67,6 @@ void keyboard_post_init_user(void) {
   //debug_mouse=true;X
 
 #endif
-
-    uprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
-    uprintf(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
 }
 
 __attribute__((weak)) void shutdown_keymap(void) {}
