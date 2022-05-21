@@ -63,6 +63,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGB_MATRIX_SPLIT
 //#define RGB_MATRIX_SPLIT { 27, 27 }
 
+#define SELECT_SOFT_SERIAL_SPEED 4
+#define SPLIT_MAX_CONNECTION_ERRORS 10
 
 //#define SSD1306OLED
 //#define USE_I2C
