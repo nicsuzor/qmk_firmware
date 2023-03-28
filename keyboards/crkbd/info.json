@@ -13,7 +13,8 @@
     "rows": ["D4", "C6", "D7", "E6"]
   },
   "diode_direction": "COL2ROW",
-  "processor": "atmega32u4",
+  "processor": "STM32F303",
+  "bootloader": "stm32-dfu",
   "community_layouts": ["split_3x5_3", "split_3x6_3"],
   "layouts": {
     "LAYOUT_split_3x6_3": {

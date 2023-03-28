@@ -1,0 +1,22 @@
+{ 
+    "keyboard_name": "crkbd",
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+"manufacturer": "ns",
+    "split": {
+        "soft_serial_pin": "A10"
+    },
+    
+  "matrix_pins": {
+    "cols": ["A2", "A1", "A0", "B8", "B13", "B14"], 
+    "rows": ["B5", "B4", "B3", "B2"]
+  },
+  
+  "maintainer": "ZSA via Drashna",
+  "usb": {
+      "vid": "0x3297",
+      "pid": "0x1969",
+      "device_version": "0.0.1"
+  },
+}

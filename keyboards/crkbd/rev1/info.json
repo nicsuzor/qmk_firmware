@@ -2,5 +2,5 @@
     "split": {
         "soft_serial_pin": "D2"
     },
-    "bootloader": "caterina"
+    "bootloader": "stm32-dfu"
 }
