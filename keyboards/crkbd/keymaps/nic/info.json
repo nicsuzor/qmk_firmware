@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "crkbd",
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "development_board": "proton_c",
+    "manufacturer": "ns",
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "A10"
+    },
+  "matrix_pins": {
+    "cols": ["A2", "A1", "A0", "B8", "B13", "B14"],
+    "rows": ["B5", "B4", "B3", "B2"]
+  },
+  "diode_direction": "COL2ROW",
+  "maintainer": "ZSA via Drashna",
+  "usb": {
+    "pid": "0x5368",
+    "device_version": "0.0.1"
+  }
+}
