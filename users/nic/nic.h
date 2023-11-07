@@ -18,12 +18,12 @@ enum userspace_custom_keycodes {
     RGB_IDL,            // RGB Idling animations
     RGBRST,            // Reset RGB
     EPRM,               // Reset eeprom
-    DBG_KEY,
+    DBG_KEY, 
     DBG_MX,
     NEW_SAFE_RANGE  // use "NEWPLACEHOLDER for keymap specific codes
 };
-#define LOWER TL_LOWR //MO(_LOWER)
-#define RAISE TL_UPPR //MO(_RAISE)
+#define LOWER MO(_LOWER) //TL_LOWR //MO(_LOWER)
+#define RAISE MO(_RAISE) //TL_UPPR //MO(_RAISE)
 
 /* OSM keycodes, to keep things clean and easy to change */
 #define OS_LGUI OSM(MOD_LGUI)
@@ -50,4 +50,4 @@ enum userspace_custom_keycodes {
 #define KC_DT1 LCTL(KC_F1)
 #define KC_DT2 LCTL(KC_F2)
 #define KC_DT3 LCTL(KC_F3)
-#define KC_DT4 LCTL(KC_F4)
+#define KC_DT4 LCTL(KC_F4)   
