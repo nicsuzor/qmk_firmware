@@ -36,7 +36,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _______________GRID_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, QK_DEBUG_TOGGLE, KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 #define _____________DOUBLE_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, KC_NO,  KC_LALT,LOWER,     KC_SPC,     RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 
-#define ________________NAV_LEFT_1_________________         EPRM, KC_HOME,  KC_PGUP, KC_UP, KC_END,  KC_BSPC
+#define ________________NAV_LEFT_1_________________         QK_DEBUG_TOGGLE, KC_PGUP, KC_HOME,  KC_UP, KC_END,  KC_BSPC
 #define ________________NAV_LEFT_2_________________         QK_BOOT, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT
 
 #define _________________NUMPAD_1__________________         ________________NUMBER_RIGHT_______________

@@ -3,3 +3,5 @@
 #
 
 DEBUG_ENABLE = yes
+CONSOLE_ENABLE = yes
+SPLIT_KEYBOARD = yes

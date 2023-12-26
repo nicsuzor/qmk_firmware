@@ -9,6 +9,9 @@
         "enabled": true,
         "soft_serial_pin": "A10"
     },
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
   "matrix_pins": {
     "cols": ["A2", "A1", "A0", "B8", "B13", "B14"],
     "rows": ["B5", "B4", "B3", "B2"]

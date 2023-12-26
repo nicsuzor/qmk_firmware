@@ -22,8 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define MASTER_LEFT
+#define DISABLE_SYNC_TIMER
 //#define SSD1306OLED
 //#define USE_I2C
 
-#define SELECT_SOFT_SERIAL_SPEED 4
+#define SELECT_SOFT_SERIAL_SPEED 3
 #define SPLIT_MAX_CONNECTION_ERRORS 10
