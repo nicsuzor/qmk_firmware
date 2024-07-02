@@ -1,5 +1,3 @@
-#include "nic.h"
-
 #include QMK_KEYBOARD_H
 
 #ifdef AUDIO_ENABLE

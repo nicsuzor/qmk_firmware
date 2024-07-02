@@ -2,14 +2,12 @@
   "keyboard_name": "crkbd",
   "processor": "STM32F303",
   "development_board": "proton_c",
-  "board": "QMK_PROTON_C",
   "bootloader": "stm32-dfu",
-  "platform": "chibios",
   "features": {
-    "rgblight": true,
+    "rgblight": false,
     "bootmagic": true,
     "mousekey": false,
-    "extrakey": true,
+    "extrakey": false,
     "nkro": true,
     "rgb_matrix": false
   },

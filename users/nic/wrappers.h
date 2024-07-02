@@ -66,13 +66,13 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________RAISE_R4__________________         _________________NUMPAD_3__________________
 
 #define _________________ADJUST_L1_________________         ___________________BLANK___________________
-#define _________________ADJUST_L2_________________         RGB_MOD, RGB_TOG, RGBRST, VRSN, QK_DEBUG_TOGGLE, EPRM
+#define _________________ADJUST_L2_________________         KC_NO, KC_NO, KC_NO, KC_NO, QK_DEBUG_TOGGLE, QK_CLEAR_EEPROM
 #define _________________ADJUST_L3_________________         MU_TOGG , CK_TOGG, AU_ON,   AU_OFF,  CG_NORM, QK_BOOT
-#define _________________ADJUST_L4_________________         QK_DEBUG_TOGGLE,QK_DEBUG_TOGGLE,RGB_SAD, RGB_VAD, RGB_TOG, RGB_IDL
+#define _________________ADJUST_L4_________________         QK_DEBUG_TOGGLE,QK_DEBUG_TOGGLE,KC_NO, KC_NO, KC_NO, KC_NO
 
 #define _________________ADJUST_R1_________________         ___________________BLANK___________________
-#define _________________ADJUST_R2_________________         KC_NO, KC_NO,  EPRM, KC_MAKE,  QK_DEBUG_TOGGLE, QK_BOOT
-#define _________________ADJUST_R3_________________         RGB_MOD, KC_MAKE,  QK_DEBUG_TOGGLE, QK_BOOT,EPRM,RGB_TOG
+#define _________________ADJUST_R2_________________         KC_NO, KC_NO,  KC_NO, KC_TRNS,  QK_DEBUG_TOGGLE, QK_BOOT
+#define _________________ADJUST_R3_________________         KC_NO, KC_TRNS,  QK_DEBUG_TOGGLE, QK_BOOT,QK_CLEAR_EEPROM,RGB_TOG
 #define _________________ADJUST_R4_________________         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0)
 
 // clang-format on
