@@ -1,20 +1,43 @@
 {
-    "keyboard_name": "crkbd",
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C",
-    "development_board": "proton_c",
-    "manufacturer": "ns",
-    "split": {
-        "enabled": true,
-        "soft_serial_pin": "A10"
-    },
-    "build": {
-        "debounce_type": "asym_eager_defer_pk"
-    },
+  "keyboard_name": "crkbd",
+  "processor": "STM32F303",
+  "development_board": "proton_c",
+  "board": "QMK_PROTON_C",
+  "bootloader": "stm32-dfu",
+  "platform": "chibios",
+  "features": {
+    "rgblight": true,
+    "bootmagic": true,
+    "mousekey": false,
+    "extrakey": true,
+    "nkro": true,
+    "rgb_matrix": false
+  },
+  "manufacturer": "ns",
+  "split": {
+    "enabled": true,
+    "soft_serial_pin": "A10",
+    "soft_serial_speed": 3
+  },
+  "build": {
+    "debounce_type": "asym_eager_defer_pk",
+    "firmware_format": "bin"
+  },
   "matrix_pins": {
-    "cols": ["A2", "A1", "A0", "B8", "B13", "B14"],
-    "rows": ["B5", "B4", "B3", "B2"]
+    "cols": [
+      "A2",
+      "A1",
+      "A0",
+      "B8",
+      "B13",
+      "B14"
+    ],
+    "rows": [
+      "B5",
+      "B4",
+      "B3",
+      "B2"
+    ]
   },
   "diode_direction": "COL2ROW",
   "maintainer": "ZSA via Drashna",

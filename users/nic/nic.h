@@ -18,8 +18,6 @@ enum userspace_custom_keycodes {
     RGB_IDL,            // RGB Idling animations
     RGBRST,            // Reset RGB
     EPRM,               // Reset eeprom
-    DBG_KEY, 
-    DBG_MX,
     NEW_SAFE_RANGE  // use "NEWPLACEHOLDER for keymap specific codes
 };
 #define LOWER MO(_LOWER) //TL_LOWR //MO(_LOWER)
