@@ -2,11 +2,12 @@
     "keyboard_name": "crkbd",
     "keyboard": "crkbd",
     "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
+    "mcu": "STM32F303",
     "board": "QMK_PROTON_C",
+    "bootloader": "stm32-dfu",
     "features": {
         "rgblight": false,
-        "bootmagic": true,
+        "bootmagic": false,
         "mousekey": false,
         "extrakey": false,
         "nkro": true,
@@ -18,14 +19,34 @@
     },
     "build": {
         "debounce_type": "asym_eager_defer_pk",
-        "firmware_format": "bin"
+        "firmware_format": "bin",
+        "lto": true
     },
     "diode_direction": "COL2ROW",
     "maintainer": "ZSA via Drashna",
     "usb": {
-        "pid": "0x5368",
-        "device_version": "0.0.1"
+        "vid": "0x4653",
+        "pid": "0x0001",
+        "device_version": "0.0.2"
     },
+    "rgb_matrix": {
+        "driver": "ws2812"
+    },
+    "split": {
+        "soft_serial_pin": "A10",
+        "transport": {
+            "sync": {
+                "matrix_state": true
+            }
+        },
+        "usb_detect": {
+            "enabled": true
+        }
+    },
+    "community_layouts": [
+        "split_3x5_3",
+        "split_3x6_3"
+    ],
     "matrix_pins": {
         "cols": [
             "A2",

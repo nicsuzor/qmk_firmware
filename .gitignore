@@ -4,8 +4,6 @@
 *~
 .DS_Store
 
-qmk
-
 # Build artifacts
 .clang_complete
 .build/
