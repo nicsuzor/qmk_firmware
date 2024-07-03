@@ -36,7 +36,7 @@
         "soft_serial_pin": "A10",
         "transport": {
             "sync": {
-                "matrix_state": true
+                "matrix_state": false
             }
         },
         "usb_detect": {
