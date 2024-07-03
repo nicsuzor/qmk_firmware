@@ -48,7 +48,7 @@ enum userspace_layers {
 #define _____________DOUBLE_BOTTOM_ROW_____________         KC_LCTL, KC_LGUI, KC_NO,  KC_LALT,LOWER,     KC_SPC,     RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 
 #define ________________NAV_LEFT_1_________________         QK_DEBUG_TOGGLE, KC_PGUP, KC_HOME,  KC_UP, KC_END,  KC_BSPC
-#define ________________NAV_LEFT_2_________________         QK_BOOT, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT
+#define ________________NAV_LEFT_2_________________         KC_TRNS, QK_BOOT, DB_TOGG, EE_CLR, KC_DOWN, KC_ENT
 
 #define _________________NUMPAD_1__________________         ________________NUMBER_RIGHT_______________
 #define _________________NUMPAD_2__________________         KC_PEQL, KC_4, KC_5, KC_6, KC_PAST, KC_ENT
