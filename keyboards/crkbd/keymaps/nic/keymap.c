@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "nic.h"
+#include "wrappers.h"
 
 // clang-format off
 

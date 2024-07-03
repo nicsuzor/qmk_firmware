@@ -1,5 +1,4 @@
 #pragma once
-#include "nic.h"
 /*
 Since our quirky block definitions are basically a list of comma separated
 arguments, we need a wrapper in order for these definitions to be
@@ -8,6 +7,18 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #    define LAYOUT KEYMAP
 #endif
+
+/* Define layer names */
+enum userspace_layers {
+    _QWERTY  = 0,
+    _RAISE,
+    _LOWER,
+    _ADJUST
+};
+
+#define LOWER MO(_LOWER) //TL_LOWR //MO(_LOWER)
+#define RAISE MO(_RAISE) //TL_UPPR //MO(_RAISE)
+
 
 // clang-format off
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
