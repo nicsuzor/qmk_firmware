@@ -1,10 +1,5 @@
 
 #define MASTER_LEFT
 #define DISABLE_SYNC_TIMER
-//#define SSD1306OLED
-//#define USE_I2C
-
 #define SPLIT_MAX_CONNECTION_ERRORS 10
-
-
 #define SELECT_SOFT_SERIAL_SPEED 4
