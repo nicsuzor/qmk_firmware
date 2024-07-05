@@ -3,7 +3,6 @@
     "keyboard": "nscrkbd",
     "processor": "STM32F303",
     "mcu": "STM32F303",
-    "development_board": "proton_c",
     "board": "QMK_PROTON_C",
     "bootloader": "stm32-dfu",
     "features": {
@@ -12,7 +11,7 @@
         "mousekey": false,
         "extrakey": false,
         "nkro": true,
-        "rgb_matrix": false
+        "rgb_matrix": false,
     },
     "manufacturer": "ns",
     "layout_aliases": {
@@ -23,6 +22,7 @@
         "firmware_format": "bin",
         "lto": true
     },
+    "hal_use_serial": false,
     "diode_direction": "COL2ROW",
     "maintainer": "ZSA via Drashna",
     "usb": {
