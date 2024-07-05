@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "crkbd",
-    "keyboard": "crkbd",
+    "keyboard_name": "nscrkbd",
+    "keyboard": "nscrkbd",
     "processor": "STM32F303",
     "mcu": "STM32F303",
     "development_board": "proton_c",
