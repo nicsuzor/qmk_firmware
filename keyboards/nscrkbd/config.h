@@ -18,9 +18,9 @@
 
 
 #define SELECT_SOFT_SERIAL_SPEED 1
-#define SERIAL_USART_DRIVER SD1
-#define SERIAL_USART_TX_PAL_MODE 7
-#define SERIAL_USART_TIMEOUT 100
+// #define SERIAL_USART_DRIVER SD1
+// #define SERIAL_USART_TX_PAL_MODE 7
+// #define SERIAL_USART_TIMEOUT 100
 
 // Feature diable options
 //#define NO_DEBUG
